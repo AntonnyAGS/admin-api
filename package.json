@@ -16,7 +16,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http": "^0.0.1-security",
-    "mongoose": "^5.10.9",
-    "nodemon": "^2.0.5"
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "nodemon": "^2.0.6"
   }
 }
