@@ -19,6 +19,6 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(bodyParse.json());
 
-app.use(routes)
+app.use(routes);
 
 server.listen(PORT, () => console.log(`Server is running on PORT =====> ${PORT}`));
