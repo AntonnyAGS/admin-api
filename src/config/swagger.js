@@ -11,6 +11,13 @@ const swaggerOptions = {
       contact: {
         name: 'Grupo Admin'
       }
-    }
-  }
+    },
+    servers: ["http://0.0.0.0:3001"]
+  },
+  apis: ["./routes.js"]
 };
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+const swaggerUiServe = swaggerUi.serve;
+const swaggerSetup = swaggerUi.setup(swaggerDocs);
+
+module.exports = { swaggerUiServe, swaggerSetup }; 
