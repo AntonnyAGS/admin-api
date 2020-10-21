@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "test": "jest --detectOpenHandles",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "lint": "eslint src --ext .js --ignore-path .gitignore --ignore-pattern node_modules/",
+    "lint:fix": "eslint src --fix --ext js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test && yarn lint"
+    }
   },
   "keywords": [],
   "author": "",
@@ -21,7 +28,11 @@
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "eslint": "^7.11.0",
-    "nodemon": "^2.0.6"
+    "husky": "^4.3.0",
+    "jest": "^26.6.0",
+    "nodemon": "^2.0.6",
+    "supertest": "^5.0.0"
   }
 }

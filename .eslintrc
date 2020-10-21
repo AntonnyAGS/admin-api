@@ -1,13 +1,27 @@
 {
+   "root": true,
+   "env": {
+      "browser": true,
+      "node": true
+   },
   "parserOptions": {
-      "ecmaVersion": 6,
+      "ecmaVersion": 8,
       "sourceType": "module",
       "ecmaFeatures": {
-          "jsx": true
+          "jsx": true,
+          "globalReturn": true,
+          "arrowFunctions": true,
+          "experimentalObjectRestSpread": true
       }
   },
   "rules": {
       "semi": "error",
-      "eol-last": "error"
+      "eol-last": "error",
+      "no-trailing-spaces": "error",
+      "arrow-spacing": "error",
+      "indent": ["error", 2],
+      "quotes": [2, "single"],
+      "no-unused-expressions": "error",
+      "no-console": "error"
   }
 }
