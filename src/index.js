@@ -13,7 +13,7 @@ require(__dirname + '/globals')();
 
 require (__CONFIG + 'mongodb');
 
-const routes = require('./routes');
+const routes = require('./routers');
 
 const PORT = process.env.PORT || 3001;
 app.use(cors());
