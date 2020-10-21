@@ -14,7 +14,7 @@ const swaggerOptions = {
     },
     servers: ["http://0.0.0.0:3001"]
   },
-  apis: ["./routes.js"]
+  apis: ["src/routers/*.js"]
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const swaggerUiServe = swaggerUi.serve;
