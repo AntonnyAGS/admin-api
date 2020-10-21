@@ -12,12 +12,12 @@ const swaggerOptions = {
         name: 'Grupo Admin'
       }
     },
-    servers: ["http://0.0.0.0:3001"]
+    servers: ['http://0.0.0.0:3001']
   },
-  apis: ["src/routers/*.js"]
+  apis: ['src/routers/*.js']
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 const swaggerUiServe = swaggerUi.serve;
 const swaggerSetup = swaggerUi.setup(swaggerDocs);
 
-module.exports = { swaggerUiServe, swaggerSetup }; 
+module.exports = { swaggerUiServe, swaggerSetup };

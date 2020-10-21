@@ -8,6 +8,10 @@
   },
   "rules": {
       "semi": "error",
-      "eol-last": "error"
+      "eol-last": "error",
+      "no-trailing-spaces": "error",
+      "arrow-spacing": "error",
+      "indent": ["error", 2],
+      "quotes": [2, "single"]
   }
 }
