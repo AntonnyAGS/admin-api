@@ -15,7 +15,7 @@ const user = express.Router();
  *        description: Success
  */
 user.get('/', (req, res) => {
-  res.status(200).send('User router');
+  res.status(200).send();
 });
 
 module.exports = user;
