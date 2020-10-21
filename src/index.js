@@ -9,11 +9,11 @@ const server = http.Server(app);
 const cors = require('cors');
 const bodyParse = require('body-parser');
 
-require(__dirname + '/globals.js')();
+require(__dirname + '/globals')();
 
 require (__CONFIG + 'mongodb');
 
-const routes = require('/routes');
+const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 app.use(cors());

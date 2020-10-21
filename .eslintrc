@@ -7,6 +7,7 @@
       }
   },
   "rules": {
-      "semi": "error"
+      "semi": "error",
+      "eol-last": "error"
   }
 }
