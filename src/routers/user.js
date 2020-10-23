@@ -4,18 +4,20 @@ const express = require('express');
 
 const user = express.Router();
 
+const { UserController } = require(__CONTROLLERS);
+
+const { creatingUser } = require (__MIDDLEWARES);
+
 // Routes
 /**
  * @swagger
  * /user:
- *  get:
- *    description: Use this to get all admin users
+ *  post:
+ *    description: Use essa rota para criação de usuários admin.
  *    responses:
- *      '200':
+ *      '201':
  *        description: Success
  */
-user.get('/', (req, res) => {
-  res.status(200).send();
-});
+user.post('/', creatingUser.validateRegister, UserController.store);
 
 module.exports = user;
