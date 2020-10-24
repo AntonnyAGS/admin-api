@@ -6,7 +6,7 @@ const user = express.Router();
 
 const { UserController } = require('../controllers');
 
-const { creatingUser } = require ('../middlewares');
+const { creatingUser, checkingAuth, checkingAdmin } = require ('../middlewares');
 
 // Routes
 /**
@@ -18,6 +18,17 @@ const { creatingUser } = require ('../middlewares');
  *      '201':
  *        description: Success
  */
-user.post('/', creatingUser.validateRegister, UserController.store);
+user.post('/', creatingUser, UserController.store);
+
+/**
+ * @swagger
+ * /user:
+ *  get:
+ *    description: Use essa rota para listar os usuários.
+ *    responses:
+ *      '201':
+ *        description: Success
+ */
+user.get('/', [ checkingAuth, checkingAdmin ], UserController.index);
 
 module.exports = user;

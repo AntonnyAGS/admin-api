@@ -20,7 +20,7 @@ module.exports = {
         user.password = undefined;
         return res.status(200).json({
           user,
-          token: generateToken({ id: user.id })
+          token: generateToken({ id: user.id, isAdmin: user.isAdmin })
         });
       }
 

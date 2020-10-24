@@ -18,6 +18,6 @@ const { authorizingUser } = require('../middlewares');
  *      '200':
  *        description: Success
  */
-auth.post('/', authorizingUser.validateAuth, AuthController.authenticate);
+auth.post('/', authorizingUser, AuthController.authenticate);
 
 module.exports = auth;

@@ -17,7 +17,10 @@ const User = {
   ...UserCredentials,
   name: 'João',
   password_repeat: '123456',
+  isAdmin: true
 };
+
+let UserAuthenticated = null;
 
 beforeAll(async () => {
   process.env.SECRET_HASH = 'banana';
@@ -37,6 +40,17 @@ describe('User', () => {
   });
   it('POST on /auth', async(done) => {
     const response = await request(app).post('/auth').send(User);
+    UserAuthenticated = response.body;
+    expect(response.status).toBe(200);
+    done();
+  });
+  it('GET on /user', async(done) => {
+    const response = await request(app).get('/user');
+    expect(response.status).toBe(401);
+    done();
+  });
+  it('GET on /user', async(done) => {
+    const response = await request(app).get('/user').set('Authorization', `Bearer ${UserAuthenticated.token}`);
     expect(response.status).toBe(200);
     done();
   });

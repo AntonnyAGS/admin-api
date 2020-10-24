@@ -38,5 +38,16 @@ module.exports = {
         message: 'Não foi possível criar o usuário'
       });
     }
+  },
+  async index(req, res){
+    try {
+      const query = req.query;
+      const users = await User.find(query).select('-password');
+      return res.status(200).json(users);
+    } catch(error){
+      //eslint-disable-next-line
+      console.log('Error on get users ======>', error);
+      return res.status(400).json({ message: 'Desculpe, não podemos listar os usuários '});
+    }
   }
 };

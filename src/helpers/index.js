@@ -11,5 +11,15 @@ module.exports = {
     return jwt.sign(params, process.env.SECRET_HASH, {
       expiresIn: '30d'
     });
+  },
+  validateToken: (token) => {
+    return jwt.verify(token, process.env.SECRET_HASH, (error, decode) => {
+      if (error) {
+        //eslint-disable-next-line
+        console.log(error);
+        return false;
+      };
+      return { id: decode.id, isAdmin: decode.isAdmin };
+    });
   }
 };
