@@ -14,6 +14,19 @@ const { authorizingUser } = require('../middlewares');
  * /auth:
  *  post:
  *    description: Use essa rota para logar usuários.
+ *    parameters:
+ *      - in: body
+ *        name: user
+ *        schema:
+ *          type: object
+ *          required:
+ *            - email
+ *            - password
+ *          properties:
+ *            email:
+ *              type: string
+ *            password:
+ *              type: string
  *    responses:
  *      '200':
  *        description: Success
