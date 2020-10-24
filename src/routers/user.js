@@ -4,9 +4,9 @@ const express = require('express');
 
 const user = express.Router();
 
-const { UserController } = require(__CONTROLLERS);
+const { UserController } = require('../controllers');
 
-const { creatingUser } = require (__MIDDLEWARES);
+const { creatingUser } = require ('../middlewares');
 
 // Routes
 /**

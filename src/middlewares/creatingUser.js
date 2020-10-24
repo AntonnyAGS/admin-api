@@ -1,6 +1,6 @@
 'use strict';
 
-const { validateEmail } = require(__HELPERS);
+const { validateEmail } = require('../helpers');
 
 module.exports = {
   validateRegister: (req, res, next) => {

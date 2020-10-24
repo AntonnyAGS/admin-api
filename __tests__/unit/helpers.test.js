@@ -1,7 +1,10 @@
 'use strict';
 
-const { validateEmail } = require('../../src/helpers');
+const { validateEmail, generateToken } = require('../../src/helpers');
 
+beforeAll(() => {
+  process.env.SECRECT_HASH = 'banana';
+});
 describe('Helpers', () => {
   it('Testing validate email function', () => {
     const email = 'ant.dmcom.com';
@@ -15,6 +18,11 @@ describe('Helpers', () => {
 
     const response = validateEmail(email);
 
+    expect(response).toBe(true);
+  });
+  it('Testing generating token', () => {
+    const token = generateToken({ id: 'mockid' });
+    const response = !!token;
     expect(response).toBe(true);
   });
 });

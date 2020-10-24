@@ -20,6 +20,7 @@ const User = {
 };
 
 beforeAll(async () => {
+  process.env.SECRECT_HASH = 'banana';
   const uri = await mongo.getUri();
   await mongoose.connect(uri, {
     useNewUrlParser: true,

@@ -4,7 +4,7 @@ const user = require('./user');
 const auth = require('./auth');
 
 const express = require('express');
-const { swaggerUiServe, swaggerSetup } = require(__CONFIG + 'swagger');
+const { swaggerUiServe, swaggerSetup } = require('../config/swagger');
 
 const router = express.Router();
 
