@@ -8,7 +8,7 @@ module.exports = {
     return regex.test(email.toLowerCase());
   },
   generateToken: (params = {}) => {
-    return jwt.sign(params, process.env.SECRECT_HASH, {
+    return jwt.sign(params, process.env.SECRET_HASH, {
       expiresIn: '30d'
     });
   }

@@ -3,7 +3,7 @@
 const { validateEmail, generateToken } = require('../../src/helpers');
 
 beforeAll(() => {
-  process.env.SECRECT_HASH = 'banana';
+  process.env.SECRET_HASH = 'banana';
 });
 describe('Helpers', () => {
   it('Testing validate email function', () => {
