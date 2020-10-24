@@ -2,12 +2,18 @@
 
 const { User } = require(__MODELS);
 const bcrypt = require('bcryptjs');
+const { validateEmail } = require(__HELPERS);
 
 module.exports = {
   async store(req, res){
     try {
       const { email, password, name, isAdmin, ra  } = req.body;
 
+      if (!validateEmail(email)) {
+        return res.status(400).json({
+          message: 'Email inválido.'
+        });
+      }
       const userExists = await User.findOne({ email });
       if (userExists){
         return res.status(400).json({
@@ -40,4 +46,3 @@ module.exports = {
     }
   }
 };
-
