@@ -6,8 +6,6 @@ const app = express();
 const cors = require('cors');
 const bodyParse = require('body-parser');
 
-require(__dirname + '/globals')();
-
 const routes = require('./routers');
 
 app.use(cors());

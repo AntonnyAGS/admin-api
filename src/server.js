@@ -3,7 +3,7 @@
 const http = require('http');
 const app = require('./app');
 
-require (__CONFIG + 'mongodb');
+require ('./config/mongodb');
 
 const PORT = process.env.PORT || 3001;
 
