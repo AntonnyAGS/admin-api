@@ -1,3 +1,4 @@
 const creatingUser = require('./creatingUser');
+const authorizingUser = require('./authorizingUser');
 
-module.exports = { creatingUser };
+module.exports = { creatingUser, authorizingUser };

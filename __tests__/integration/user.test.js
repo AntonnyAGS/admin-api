@@ -9,6 +9,16 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const mongo = new MongoMemoryServer();
 
+const UserCredentials = {
+  email: 'joazinhomock@gatinhos.com',
+  password: '123456'
+};
+const User = {
+  ...UserCredentials,
+  name: 'João',
+  password_repeat: '123456',
+};
+
 beforeAll(async () => {
   const uri = await mongo.getUri();
   await mongoose.connect(uri, {
@@ -20,14 +30,13 @@ beforeAll(async () => {
 });
 describe('User', () => {
   it('POST on /user', async (done) => {
-    const User = {
-      name: 'João',
-      email: 'joazinhomock@gatinhos.com',
-      password: '123456',
-      password_repeat: '123456'
-    };
     const response = await request(app).post('/user').send(User);
     expect(response.status).toBe(201);
+    done();
+  });
+  it('POST on /auth', async(done) => {
+    const response = await request(app).post('/auth').send(User);
+    expect(response.status).toBe(200);
     done();
   });
 });

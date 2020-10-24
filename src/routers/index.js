@@ -13,7 +13,7 @@ router.use('/api-docs', swaggerUiServe);
 router.get('/api-docs',  swaggerSetup);
 
 router.use('/user', user);
-// router.use('/auth', auth);
+router.use('/auth', auth);
 
 router.get('/', (req, res) => {
   res.send('Hello world');
