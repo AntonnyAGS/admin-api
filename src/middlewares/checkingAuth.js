@@ -2,7 +2,7 @@
 
 const { validateToken } = require('../helpers');
 module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const authHeader = req.cookies.authorization || req.headers.authorization;
 
   if (!authHeader) return res.status(401).json({ message: 'Token não informado' });
 

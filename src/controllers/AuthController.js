@@ -18,9 +18,18 @@ module.exports = {
       if(!passwordCompare) return res.status(400).json({ message: 'As senhas não conferem' });
       else {
         user.password = undefined;
+
+        const token = generateToken({ id: user.id, isAdmin: user.isAdmin });
+        const expires = new Date();
+        expires.setDate(new Date().getDate() + 30);
+
+        res.cookie('authorization', `Bearer ${token}`, {
+          expires
+        });
+
         return res.status(200).json({
           user,
-          token: generateToken({ id: user.id, isAdmin: user.isAdmin })
+          token
         });
       }
 
