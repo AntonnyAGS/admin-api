@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
 
   if (!req.body.password || req.body.password.length < 6){
     return res.status(400).json({
-      message: 'Por favor, digite um senha maior que 3 caracteres'
+      message: 'Por favor, digite um senha maior que 5 caracteres'
     });
   }
 

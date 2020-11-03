@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "dev": "nodemon src/server.js",
+    "dev": "nodemon -L src/server.js",
     "start": "node src/server.js",
     "lint": "eslint src --ext .js --ignore-path .gitignore --ignore-pattern node_modules/",
     "lint:fix": "eslint src --fix --ext js"
