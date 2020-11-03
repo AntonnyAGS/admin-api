@@ -42,25 +42,19 @@ beforeAll(async () => {
   //eslint-disable-next-line
   console.log('Running on ', uri);
 });
-describe('User', () => {
-  it('POST on /user', async (done) => {
+describe('Group', () => {
+  it('POST on /group', async(done) => {
     const response = await request(app).post('/user').send(User);
-    expect(response.status).toBe(201);
-    done();
-  });
-  it('POST on /auth', async(done) => {
-    const response = await request(app).post('/auth').send(User);
-    UserAuthenticated = response.body;
-    expect(response.status).toBe(200);
-    done();
-  });
-  it('Post on /group', async(done) => {
 
-    const response = await request(app).get('/group').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(Group);
-    expect(response.status).toBe(201);
+    const responseAuth = await request(app).post('/auth').send(User);
+    UserAuthenticated = responseAuth.body;
+
+    const responseGroup = await request(app).post('/group').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(Group);
+    expect(responseGroup.status).toBe(201);
     done();
   });
 });
+
 afterAll(async () => {
   await mongoose.disconnect();
   await mongo.stop();
