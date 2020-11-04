@@ -1,37 +1,44 @@
 'use strict';
 
-const { Group } = require('../models');
+const { Group, User } = require('../models');
+const { printMembersName } = require('../helpers');
+const { ObjectId } = require('mongoose').Types;
 
 module.exports = {
   async store(req, res){
     try {
-      const { group_name, members_id } = req.body;
-
-      const membersFiltered = members_id.filter((value, i) => members_id.indexOf(value) === i );
+      const { groupName,  userId} = req.body;
 
       let membersWithManyGroups = [];
+      let memberNotExists = [];
+      let errors = [];
 
-      for (const key of membersFiltered) {
-        let findMember = await Group.find({ members_id: key });
-        if(findMember.length >= 2)
+      for (const key of userId) {
+        let findMemberInGroup = await Group.find({ userId: key });
+        let findMember = await User.find({ _id:  new ObjectId(key)});
+
+        if(findMemberInGroup.length >= 2)
           membersWithManyGroups.push(key);
+
+        if(!findMember.length)
+          memberNotExists.push(key);
       }
 
-      const printMembersName = (accumulator, value, i, arr) => {
-        const text = arr.length-1 === i ? ` ${accumulator} e ${value}` : ` ${accumulator}, ${value},`;
+      if (membersWithManyGroups.length || memberNotExists.length){
+        if(membersWithManyGroups.length)
+          errors.push({ message: `Desculpe, o(s) membro(s) ${membersWithManyGroups.reduce(printMembersName)} já está(ão) em mais de 2 grupos`});
 
-        return arr.length === 1 ? value : text;
-      };
+        if(memberNotExists.length)
+          errors.push({ message: `O(s) id(s) ${memberNotExists.reduce(printMembersName)} não corresponde(m) a nenhum usuário`});
 
-      if (membersWithManyGroups.length){
         return res.status(400).json({
-          message: `Desculpe, o(s) membro(s)${membersWithManyGroups.reduce(printMembersName)} já está(ão) em mais de 2 grupos`
+          errors
         });
       }
 
       const group = await Group.create({
-        group_name,
-        members_id: membersFiltered
+        groupName,
+        userId
       });
 
       return res.status(201).json({ group });

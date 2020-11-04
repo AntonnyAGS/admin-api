@@ -2,7 +2,7 @@
 
 const express = require('express');
 const GroupController = require('../controllers/GroupController');
-const {checkingAuth, checkingAdmin} = require('../middlewares');
+const {checkingAuth, checkingAdmin, creatingGroup} = require('../middlewares');
 
 const group = express.Router();
 
@@ -34,7 +34,7 @@ const group = express.Router();
  *              items:
  *                  type: string
  */
-group.post('/', [ checkingAuth, checkingAdmin ], GroupController.store);
+group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.store);
 
 /**
  * @swagger

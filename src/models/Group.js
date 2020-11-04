@@ -3,11 +3,11 @@
 const { Schema, model } = require('mongoose');
 
 const GroupSchema = new Schema({
-  group_name: {
+  groupName: {
     type: String,
     required: false
   },
-  members_id: {
+  userId: {
     type: [String ],
     required: true,
   },
