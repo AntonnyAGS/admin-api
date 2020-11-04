@@ -7,7 +7,7 @@ const GroupSchema = new Schema({
     type: String,
     required: false
   },
-  userId: {
+  usersIds: {
     type: [String ],
     required: true,
   },

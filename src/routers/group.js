@@ -12,24 +12,31 @@ const group = express.Router();
  * /group:
  *  post:
  *    tags:
- *      - admin
+ *      - group
  *    description: Use essa rota para criação de grupos.
  *    summary: Adiciona um novo grupo na base de dados.
  *    responses:
  *      '201':
  *        description: Success
  *    parameters:
+ *      - in: header
+ *        name: Authorization
+ *        schema: bearer
+ *      - in: query
+ *        name: isAdmin
+ *        schema:
+ *          type: boolean
  *      - in: body
  *        name: group
  *        schema:
  *          type: object
  *          required:
  *            - group_name
- *            - id_members:
+ *            - userId:
  *          properties:
  *            group_name:
  *              type: string
- *            id_members:
+ *            usersIds:
  *              type: array
  *              items:
  *                  type: string
@@ -41,7 +48,7 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  * /group:
  *  get:
  *    tags:
- *      - admin
+ *      - group
  *    description: Use essa rota para retornar a lista dos grupos.
  *    summary: Retorna uma lista contendo todos os grupos.
  *    parameters:
@@ -65,18 +72,18 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *                      type: string
  *                  group_name:
  *                      type: string
- *                  members:
+ *                  users:
  *                      type: array
  *                      items:
  *                          type: object
  *                          properties:
- *                              member_id:
+ *                              userId:
  *                                  type: string
  *                              name:
  *                                  type: string
  *                              email:
  *                                  type: string
  */
-group.get('/', [ checkingAuth, checkingAdmin ],(req,res) => {});
+group.get('/', [ checkingAuth, checkingAdmin ], GroupController.index);
 
 module.exports = group;
