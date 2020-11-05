@@ -24,6 +24,7 @@ let UserAuthenticated = null;
 
 beforeAll(async () => {
   process.env.SECRET_HASH = 'banana';
+  process.env.SECRET_REFRESH_HASH = 'bananana';
   const uri = await mongo.getUri();
   await mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -42,6 +43,13 @@ describe('User', () => {
     const response = await request(app).post('/auth').send(User);
     UserAuthenticated = response.body;
     expect(response.status).toBe(200);
+    done();
+  });
+  it('POST on /refresh-token', async(done) => {
+    const response = await request(app).post('/auth/refresh-token').send({ refreshToken: UserAuthenticated.refreshToken });
+    UserAuthenticated.refreshToken = response.body.refreshToken;
+    UserAuthenticated.token = response.body.token;
+    expect(response.status).toBe(201);
     done();
   });
   it('GET on /user', async(done) => {
