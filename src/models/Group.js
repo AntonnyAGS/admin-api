@@ -7,10 +7,12 @@ const GroupSchema = new Schema({
     type: String,
     required: false
   },
-  usersIds: {
-    type: [String ],
+  usersIds: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
-  },
+    alias: 'users'
+  }],
 },
 {
   timestamps: true

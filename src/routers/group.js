@@ -18,6 +18,33 @@ const group = express.Router();
  *    responses:
  *      '201':
  *        description: Success
+ *        type: object
+ *        schema:
+ *          type: object
+ *          properties:
+ *              _id:
+ *                  type: string
+ *              groupName:
+ *                  type: string
+ *              createdAt:
+ *                  type: string
+ *              updatedAt:
+ *                  type: string
+ *              usersIds:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          _id:
+ *                              type: string
+ *                          name:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          createdAt:
+ *                              type: string
+ *                          updatedAt:
+ *                              type: string
  *    parameters:
  *      - in: header
  *        name: Authorization
@@ -31,10 +58,10 @@ const group = express.Router();
  *        schema:
  *          type: object
  *          required:
- *            - group_name
+ *            - groupName
  *            - userId:
  *          properties:
- *            group_name:
+ *            groupName:
  *              type: string
  *            usersIds:
  *              type: array
@@ -60,7 +87,7 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *        schema:
  *          type: boolean
  *    responses:
- *      '201':
+ *      '200':
  *        description: Success
  *        type: array
  *        schema:
@@ -70,18 +97,22 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *              properties:
  *                  id:
  *                      type: string
- *                  group_name:
+ *                  groupName:
  *                      type: string
  *                  users:
  *                      type: array
  *                      items:
  *                          type: object
  *                          properties:
- *                              userId:
+ *                              _id:
  *                                  type: string
  *                              name:
  *                                  type: string
  *                              email:
+ *                                  type: string
+ *                              createdAt:
+ *                                  type: string
+ *                              updatedAt:
  *                                  type: string
  */
 group.get('/', [ checkingAuth, checkingAdmin ], GroupController.index);
