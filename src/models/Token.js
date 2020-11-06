@@ -15,7 +15,12 @@ const TokenSchema = new Schema({
     type: ObjectId,
     ref: 'User',
     required: true
-  }
+  },
+  expireAt: {
+    type: Date,
+    default: Date.now,
+    index: { expireAfterSeconds: 604800 }
+  },
 },
 {
   timestamps: true
