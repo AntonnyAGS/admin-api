@@ -56,6 +56,7 @@ const usersId = [];
 
 beforeAll(async () => {
   process.env.SECRET_HASH = 'banana';
+  process.env.SECRET_REFRESH_HASH = 'bananana';
   const uri = await mongo.getUri();
   await mongoose.connect(uri, {
     useNewUrlParser: true,
