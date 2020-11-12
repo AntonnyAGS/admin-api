@@ -27,6 +27,11 @@ module.exports = {
       return { id: decode.id, isAdmin: decode.isAdmin };
     });
   },
+  printMembersName: (accumulator, value, i, arr) => {
+    const text = arr.length-1 === i ? `${accumulator} e ${value}` : `${accumulator}, ${value},`;
+
+    return arr.length === 1 ? value : text;
+  },
   validateRefreshToken: (token) => {
     return jwt.verify(token, process.env.SECRET_REFRESH_HASH, (error) => {
       if (error) {
@@ -37,4 +42,4 @@ module.exports = {
       return true;
     });
   }
-};
+}
