@@ -2,6 +2,6 @@ const creatingUser = require('./creatingUser');
 const authorizingUser = require('./authorizingUser');
 const checkingAuth = require('./checkingAuth');
 const checkingAdmin = require('./checkingAdmin');
-const checkingForgot = require('./checkingForgotPassword');
+const checkingForgotPassword = require('./checkingForgotPassword');
 
-module.exports = { creatingUser, authorizingUser, checkingAuth, checkingAdmin, checkingForgot };
+module.exports = { creatingUser, authorizingUser, checkingAuth, checkingAdmin, checkingForgotPassword };
