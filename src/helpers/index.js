@@ -9,7 +9,12 @@ module.exports = {
   },
   generateToken: (params = {}) => {
     return jwt.sign(params, process.env.SECRET_HASH, {
-      expiresIn: '30d'
+      expiresIn: '1h'
+    });
+  },
+  generateRefreshToken: (params = {}) => {
+    return jwt.sign(params, process.env.SECRET_REFRESH_HASH, {
+      expiresIn: '7d'
     });
   },
   validateToken: (token) => {
@@ -26,5 +31,15 @@ module.exports = {
     const text = arr.length-1 === i ? `${accumulator} e ${value}` : `${accumulator}, ${value},`;
 
     return arr.length === 1 ? value : text;
+  },
+  validateRefreshToken: (token) => {
+    return jwt.verify(token, process.env.SECRET_REFRESH_HASH, (error) => {
+      if (error) {
+        //eslint-disable-next-line
+        console.log(error);
+        return false;
+      };
+      return true;
+    });
   }
-};
+}
