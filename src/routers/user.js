@@ -13,6 +13,9 @@ const { creatingUser, checkingAuth, checkingAdmin } = require ('../middlewares')
  * @swagger
  * /user:
  *  post:
+ *    tags:
+ *      - user
+ *    summary: Adiciona um novo usuário ao banco de dados.
  *    description: Use essa rota para criação de usuários admin.
  *    responses:
  *      '201':
@@ -43,6 +46,10 @@ user.post('/', creatingUser, UserController.store);
  * @swagger
  * /user:
  *  get:
+ *    tags:
+ *      - user
+ *    summary:
+ *      Retorna a lista com todos os usuários.
  *    description: Use essa rota para listar os usuários (o usuário logado deve ser um administrador).
  *    parameters:
  *      - in: header

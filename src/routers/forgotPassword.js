@@ -11,8 +11,12 @@ const { checkingForgotPassword } = require('../middlewares');
 // Routes
 /**
  * @swagger
- * /ForgotPassword:
+ * /forgot-password:
  *  post:
+ *    tags:
+ *      - forgot-password
+ *    summary:
+ *      Envia um email com o link para recuperação de senha.
  *    description: Use essa rota para enviar email de recuperação de senha.
  *    parameters:
  *      - in: body
