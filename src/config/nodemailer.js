@@ -12,5 +12,4 @@ const transport = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD
   }
 });
-
 module.exports = transport.sendMail.bind(transport);
