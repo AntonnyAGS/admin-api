@@ -9,7 +9,7 @@ const createClient = async () => {
     phone: 'banana',
     password: 'thisshouldbeencrypted',
     email: 'thisshouldbevalidated',
-    type: PersonType.PF, // Why dont use a enum??????????
+    type: PersonType.PERSON, // Why dont use a enum??????????
     cpf: 'banana',
     enterpriseName: 'codeitman'
   };

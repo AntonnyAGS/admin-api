@@ -9,8 +9,8 @@ const ProjectStatus = {
 };
 
 const PersonType = {
-  PF: 'PF',
-  PJ: 'PJ'
+  PERSON: 'PERSON',
+  COMPANY: 'COMPANY'
 };
 
 module.exports = { ProjectStatus, PersonType };

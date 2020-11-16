@@ -21,7 +21,11 @@ const ProjectSchema = new Schema({
   status: {
     type: ProjectStatus,
     required: true
-  }
+  },
+  groupsId: [{
+    type: ObjectId,
+    ref: 'Client',
+  }]
 },
 {
   timestamps: true
