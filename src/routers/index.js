@@ -2,6 +2,7 @@
 
 const user = require('./user');
 const auth = require('./auth');
+const forgotPassword = require('./forgotPassword');
 const group = require('./group');
 
 const express = require('express');
@@ -15,6 +16,7 @@ router.get('/api-docs',  swaggerSetup);
 
 router.use('/user', user);
 router.use('/auth', auth);
+router.use('/forgot-password', forgotPassword);
 router.use('/group', group);
 
 router.get('/', (req, res) => {
