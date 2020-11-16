@@ -16,7 +16,7 @@ router.get('/api-docs',  swaggerSetup);
 
 router.use('/user', user);
 router.use('/auth', auth);
-router.use('/forgotPassword', forgotPassword);
+router.use('/forgot-password', forgotPassword);
 router.use('/group', group);
 
 router.get('/', (req, res) => {

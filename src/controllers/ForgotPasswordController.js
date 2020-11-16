@@ -2,11 +2,13 @@
 
 /** const Mail = use('Mail');*/
 const { User } = require('../models');
+const sendMail = require('../config/nodemailer');
+const forgotPassword = require('../templates/forgot-password');
 
 module.exports = {
-  async forgot({req, res}){
+  async forgot(req, res){
     try{
-      const email = req.input('email');
+      const { email } = req.body;
 
       const userExists = await User.findOne({ email });
       if (!userExists){
@@ -14,6 +16,16 @@ module.exports = {
           message: 'Desculpe, não existe o registro desse e-mail.'
         });
       }
+
+      const message = {
+        from: `Admin Fábrica <${process.env.EMAIL_USER}>`,
+        to: userExists.email,
+        subject: 'Esqueceu a senha',
+        html: forgotPassword(userExists.name, 'wwww.google.com')
+      };
+
+      await sendMail(message);
+      return res.status(200).json({ message: 'Enviado com sucesso'});
 
       /**Gerar um token. */
       /**Enviar email. */
