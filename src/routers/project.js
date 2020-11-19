@@ -34,6 +34,6 @@ const { checkingAuth } = require('../middlewares');
  *      '200':
  *        description: Success
  */
-project.get('/', checkingAuth, AuthController.authenticate);
+project.get('/', checkingAuth, ProjectController.index);
 
 module.exports = project;
