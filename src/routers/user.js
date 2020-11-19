@@ -81,6 +81,10 @@ user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
  * /user/registermany:
  *  post:
  *    description: Use essa rota para criação de usuários admin.
+ *    tags:
+ *      - user
+ *    summary:
+ *      Cadastra vários usuários (usados para cadastrar vários alunos)
  *    responses:
  *      '201':
  *        description: Success
