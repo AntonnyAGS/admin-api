@@ -17,6 +17,7 @@ const { authorizingUser, validatingToken } = require('../middlewares');
  *    parameters:
  *      - in: body
  *        name: user
+ *        required: true
  *        schema:
  *          type: object
  *          required:
@@ -41,6 +42,7 @@ auth.post('/', authorizingUser, AuthController.authenticate);
  *    parameters:
  *      - in: body
  *        name: user
+ *        required: true
  *        schema:
  *          type: object
  *          required:
