@@ -5,5 +5,15 @@ const checkingAdmin = require('./checkingAdmin');
 const checkingForgotPassword = require('./checkingForgotPassword');
 const creatingGroup = require('./creatingGroup');
 const validatingToken = require('./validatingToken');
+const creatingManyUsers = require('./creatingManyUsers');
 
-module.exports = { creatingUser, authorizingUser, checkingAuth, checkingAdmin, validatingToken, creatingGroup, checkingForgotPassword };
+module.exports = {
+  creatingUser,
+  authorizingUser,
+  checkingAuth,
+  checkingAdmin,
+  validatingToken,
+  creatingGroup,
+  creatingManyUsers,
+  checkingForgotPassword
+};

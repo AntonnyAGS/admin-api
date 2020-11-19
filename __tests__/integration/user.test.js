@@ -19,6 +19,29 @@ const User = {
   password_repeat: '123456',
   isAdmin: true
 };
+const users = [
+  {
+    email: 'caiozinhomock1@gatinhos.com',
+    name: 'Caio',
+    password: '123456',
+    password_repeat: '123456',
+    ra: '8193740954'
+  },
+  {
+    email: 'joazinhomock1@gatinhos.com',
+    name: 'João',
+    password: '123456',
+    password_repeat: '123456',
+    ra: '812364683'
+  },
+  {
+    email: 'alininhamock1@gatinhos.com',
+    name: 'Aline',
+    password: '123456',
+    password_repeat: '123456',
+    ra: '816343554'
+  },
+];
 
 let UserAuthenticated = null;
 
@@ -60,6 +83,17 @@ describe('User', () => {
   it('GET on /user', async(done) => {
     const response = await request(app).get('/user').set('Authorization', `Bearer ${UserAuthenticated.token}`);
     expect(response.status).toBe(200);
+    done();
+  });
+  it('GET on /user/id', async(done) => {
+    const response = await request(app).get(`/user/${UserAuthenticated.user._id}`).set('Authorization', `Bearer ${UserAuthenticated.token}`);
+    expect(response.status).toBe(200);
+    done();
+  });
+  it('POST on /user/registermany', async(done) => {
+    const response = await request(app).post('/user/registermany').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(users);
+    UserAuthenticated = response.body;
+    expect(response.status).toBe(201);
     done();
   });
 });
