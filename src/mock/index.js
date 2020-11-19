@@ -14,9 +14,6 @@ const createClient = async () => {
     enterpriseName: 'codeitman'
   };
   await Client.create(_client);
-
-  // eslint-disable-next-line no-console
-  console.log(client);
 };
 
 const createProject = async () => {

@@ -13,7 +13,10 @@ const { authorizingUser, validatingToken } = require('../middlewares');
  * @swagger
  * /auth:
  *  post:
+ *    tags:
+ *      - auth
  *    description: Use essa rota para logar usuários.
+ *    summary: Retorna tokens (de acesso e de refresh válidos) e adicionar esses tokens no banco de dados.
  *    parameters:
  *      - in: body
  *        name: user
@@ -36,9 +39,12 @@ auth.post('/', authorizingUser, AuthController.authenticate);
 
 /**
  * @swagger
- * /auth:
+ * /refresh-token:
  *  post:
- *    description: Use essa rota para logar usuários.
+ *    tags:
+ *      - auth
+ *    description: Use essa rota fazer refresh do token de acesso.
+ *    summary: Retorna um token de acesso válido a partir de um refresh token válido e faz as devidas operações no banco de dados.
  *    parameters:
  *      - in: body
  *        name: user
