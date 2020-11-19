@@ -52,12 +52,9 @@ auth.post('/', authorizingUser, AuthController.authenticate);
  *        schema:
  *          type: object
  *          required:
- *            - email
- *            - password
+ *            - refreshToken
  *          properties:
- *            email:
- *              type: string
- *            password:
+ *            refreshToken:
  *              type: string
  *    responses:
  *      '200':
