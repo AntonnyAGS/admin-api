@@ -26,7 +26,7 @@ module.exports = async (req, res, next) => {
 
   req.context = {
     userId: decoded.id,
-    isAdmin: decoded.isAdmin
+    role: decoded.role
   };
   next();
 };

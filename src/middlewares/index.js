@@ -1,3 +1,5 @@
+'use strict';
+
 const creatingUser = require('./creatingUser');
 const authorizingUser = require('./authorizingUser');
 const checkingAuth = require('./checkingAuth');
@@ -6,6 +8,7 @@ const checkingForgotPassword = require('./checkingForgotPassword');
 const creatingGroup = require('./creatingGroup');
 const validatingToken = require('./validatingToken');
 const creatingManyUsers = require('./creatingManyUsers');
+const creatingClientUser = require('./creatingClientUser');
 
 module.exports = {
   creatingUser,
@@ -15,5 +18,6 @@ module.exports = {
   validatingToken,
   creatingGroup,
   creatingManyUsers,
-  checkingForgotPassword
+  checkingForgotPassword,
+  creatingClientUser
 };

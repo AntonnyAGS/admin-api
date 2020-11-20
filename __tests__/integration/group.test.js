@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
+const { PersonType, UserRole } = require('../../src/enums');
 
 const mongo = new MongoMemoryServer();
 
@@ -17,7 +18,7 @@ const User = {
   ...UserCredentials,
   name: 'Pedro',
   password_repeat: '123456',
-  isAdmin: true
+  role: UserRole.ADMIN
 };
 
 const users = [
@@ -25,19 +26,22 @@ const users = [
     email: 'caiozinhomock@gatinhos.com',
     name: 'Caio',
     password: '123456',
-    password_repeat: '123456'
+    password_repeat: '123456',
+    role: UserRole.STUDENT
   },
   {
     email: 'joazinhomock@gatinhos.com',
     name: 'João',
     password: '123456',
-    password_repeat: '123456'
+    password_repeat: '123456',
+    role: UserRole.STUDENT
   },
   {
     email: 'alininhamock@gatinhos.com',
     name: 'Aline',
     password: '123456',
-    password_repeat: '123456'
+    password_repeat: '123456',
+    role: UserRole.STUDENT
   },
 ];
 

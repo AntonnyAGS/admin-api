@@ -4,6 +4,8 @@ const request = require('supertest');
 const app = require('../../src/app');
 const mongoose = require('mongoose');
 
+const { PersonType, UserRole } = require('../../src/enums');
+
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
 
@@ -17,7 +19,7 @@ const User = {
   ...UserCredentials,
   name: 'João',
   password_repeat: '123456',
-  isAdmin: true
+  role: UserRole.ADMIN
 };
 const users = [
   {
@@ -25,21 +27,24 @@ const users = [
     name: 'Caio',
     password: '123456',
     password_repeat: '123456',
-    ra: '8193740954'
+    ra: '8193740954',
+    role: UserRole.STUDENT
   },
   {
     email: 'joazinhomock1@gatinhos.com',
     name: 'João',
     password: '123456',
     password_repeat: '123456',
-    ra: '812364683'
+    ra: '812364683',
+    role: UserRole.STUDENT
   },
   {
     email: 'alininhamock1@gatinhos.com',
     name: 'Aline',
     password: '123456',
     password_repeat: '123456',
-    ra: '816343554'
+    ra: '816343554',
+    role: UserRole.STUDENT
   },
 ];
 

@@ -6,7 +6,7 @@ const user = express.Router();
 
 const { UserController } = require('../controllers');
 
-const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers } = require ('../middlewares');
+const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers, creatingClientUser } = require ('../middlewares');
 
 // Routes
 /**
@@ -41,7 +41,7 @@ const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers } = require
  *            password_repeat:
  *              type: string
  */
-user.post('/', creatingUser, UserController.store);
+user.post('/', [ creatingUser, creatingClientUser ], UserController.store);
 
 /**
  * @swagger

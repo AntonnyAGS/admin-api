@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
 
   if (!refreshToken) { return res.status(403).json({ message: 'Refresh token não informado' }); }
 
-  const token = await Token.findOne({ refreshToken }).populate({path: 'userId', select: 'isAdmin'});
+  const token = await Token.findOne({ refreshToken }).populate({path: 'userId', select: 'role'});
 
   if (!token) { return res.status(403).json({ message: 'Refresh token não encontrado '}); }
 
@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
   }
   req.context = {
     userId: token.userId.id,
-    isAdmin: token.userId.isAdmin
+    role: token.userId.role
   };
   next();
 };

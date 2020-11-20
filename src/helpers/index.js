@@ -24,7 +24,7 @@ module.exports = {
         console.log(error);
         return false;
       };
-      return { id: decode.id, isAdmin: decode.isAdmin };
+      return decode;
     });
   },
   printMembersName: (accumulator, value, i, arr) => {
