@@ -1,5 +1,4 @@
 'use strict';
-'use strict';
 
 const { Schema, model, ObjectId } = require('mongoose');
 const { ProjectStatus } = require('../enums');
@@ -15,7 +14,7 @@ const ProjectSchema = new Schema({
   },
   clientId: {
     type: ObjectId,
-    ref: 'Client',
+    ref: 'User',
     required: true
   },
   status: {
@@ -24,7 +23,7 @@ const ProjectSchema = new Schema({
   },
   groupsId: [{
     type: ObjectId,
-    ref: 'Client',
+    ref: 'Group',
   }]
 },
 {

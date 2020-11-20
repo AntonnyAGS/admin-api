@@ -7,39 +7,27 @@ const { isValidObjectId } = require('mongoose');
 module.exports = {
   async store(req, res){
     try {
-      const { email, password, name, isAdmin, ra  } = req.body;
+      const { email, password, ra } = req.body;
+      const userExists = await User.findOne({ email, ra });
 
-      const userExists = await User.findOne({ email });
-      if (userExists){
-        return res.status(400).json({
-          message: 'Desculpe, um usuário com este email já existe.'
-        });
-      }
-
-      if(ra){
-        const userByRA = await User.findOne({ ra });
-        if(userByRA)
-          return res.status(400).json({
-            message: 'Desculpe, um usuário com este RA já existe.'
-          });
+      if (userExists) {
+        return res.status(404).json({ message: 'Este email já existe' });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
 
+      delete req.body.password;
+
       const user = await User.create({
-        name,
-        email,
-        password: hashedPassword,
-        isAdmin,
-        ra
+        ...req.body,
+        password: hashedPassword
       });
 
       user.password = undefined;
 
       return res.status(201).json({ user });
-
     } catch (error) {
-      // eslint-disable-next-line
+      //eslint-disable-next-line
       console.log('Error on creating user =====>', error);
 
       return res.status(500).json({
@@ -80,19 +68,11 @@ module.exports = {
 
       for(let i in users){
         let user = users[i];
-        const userExists = await User.findOne({ email: user.email });
+        const userExists = await User.findOne({ email: user.email, ra: user.ra });
         if (userExists){
           return res.status(400).json({
             message: `Desculpe, já existe um usuário com o e-mail ${user.email}`
           });
-        }
-
-        if(user.ra){
-          const userByRA = await User.findOne({ ra: user.ra });
-          if(userByRA)
-            return res.status(400).json({
-              message: `Desculpe, já existe um usuário com o RA ${user.ra}`
-            });
         }
 
         const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -101,7 +81,7 @@ module.exports = {
           name: user.name,
           email: user.email,
           password: hashedPassword,
-          isAdmin: user.isAdmin,
+          role: user.role,
           ra: user.ra
         });
 

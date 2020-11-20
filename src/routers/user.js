@@ -6,7 +6,7 @@ const user = express.Router();
 
 const { UserController } = require('../controllers');
 
-const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers } = require ('../middlewares');
+const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers, creatingClientUser } = require ('../middlewares');
 
 // Routes
 /**
@@ -31,6 +31,7 @@ const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers } = require
  *            - email
  *            - password
  *            - password_repeat
+ *            - role
  *          properties:
  *            name:
  *              type: string
@@ -40,8 +41,25 @@ const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers } = require
  *              type: string
  *            password_repeat:
  *              type: string
+ *            role:
+ *              type: string
+ *              enum: [ADMIN, CLIENT, STUDENT]
+ *            personType:
+ *              description: Se o role for "CLIENT", tem que mandar isso.
+ *              type: string
+ *              enum: [PERSON, COMPANY]
+ *            cpf:
+ *              type: string
+ *              description: Se o personType for "PERSON", tem que mandar isso.
+ *            cnpj:
+ *              type: string
+ *              description: Se o personType for "COMPANY", tem que mandar isso.
+ *            phone:
+ *              type: string
+ *            ra:
+ *              type: string
  */
-user.post('/', creatingUser, UserController.store);
+user.post('/', [ creatingUser, creatingClientUser ], UserController.store);
 
 /**
  * @swagger

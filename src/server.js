@@ -6,9 +6,9 @@ const app = require('./app');
 require ('./config/mongodb');
 
 // Yes, i must mock it =C
-const { createClient, createProject } = require('./mock');
-createClient();
-createProject();
+// const { createClient, createProject } = require('./mock');
+// createClient();
+// createProject();
 
 const PORT = process.env.PORT || 3001;
 

@@ -1,7 +1,7 @@
 'use strict';
 
 const { Schema, model } = require('mongoose');
-
+const { PersonType, UserRole } = require('../enums');
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -19,9 +19,21 @@ const UserSchema = new Schema({
   ra: {
     type: String
   },
-  isAdmin: {
-    type: Boolean,
-    default: false
+  role: {
+    type: UserRole,
+    required: true
+  },
+  personType: {
+    type: PersonType
+  },
+  cnpj: {
+    type: String
+  },
+  cpf: {
+    type: String
+  },
+  phone: {
+    type: String
   }
 },
 {

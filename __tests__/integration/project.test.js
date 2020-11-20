@@ -6,10 +6,11 @@ const mongoose = require('mongoose');
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
+const { PersonType, UserRole } = require('../../src/enums');
 
 const mongo = new MongoMemoryServer();
 
-const { Project, Client } = require('../../src/models');
+const { Project } = require('../../src/models');
 
 const UserCredentials = {
   email: 'pedrinhomock@gatinhos.com',
@@ -19,7 +20,7 @@ const User = {
   ...UserCredentials,
   name: 'Pedro',
   password_repeat: '123456',
-  isAdmin: true
+  role: UserRole.ADMIN
 };
 
 const users = [
@@ -27,19 +28,22 @@ const users = [
     email: 'caiozinhomock@gatinhos.com',
     name: 'Caio',
     password: '123456',
-    password_repeat: '123456'
+    password_repeat: '123456',
+    role: UserRole.STUDENT
   },
   {
     email: 'joazinhomock@gatinhos.com',
     name: 'João',
     password: '123456',
-    password_repeat: '123456'
+    password_repeat: '123456',
+    role: UserRole.STUDENT
   },
   {
     email: 'alininhamock@gatinhos.com',
     name: 'Aline',
     password: '123456',
-    password_repeat: '123456'
+    password_repeat: '123456',
+    role: UserRole.STUDENT
   },
 ];
 
@@ -92,17 +96,21 @@ describe('Group', () => {
     done();
   });
 
-  it('POST on /client', async(done) => {
+  it('POST on /user', async(done) => {
     const _client = {
       name: 'User',
       phone: 'banana',
       password: 'thisshouldbeencrypted',
-      email: 'thisshouldbevalidated',
+      password_repeat: 'thisshouldbeencrypted',
+      email: 'thisshouldbevalidated@gmil.com',
       type: 'PERSON', // Why dont use a enum??????????
       cpf: 'banana',
-      enterpriseName: 'codeitman'
+      role: UserRole.CLIENT,
+      personType: PersonType.PERSON
     };
-    ClientResponse = await Client.create(_client);
+    const response = await request(app).post('/user').send(_client);
+    ClientResponse = response.body.user;
+    expect(response.status).toBe(201);
     done();
   });
 
@@ -112,7 +120,7 @@ describe('Group', () => {
       description: 'Testeds',
       clientId: ClientResponse._id,
       status: 'WAITING',
-      groupsId: [responseGroup._id]
+      groupsId: [responseGroup._id],
     };
     const response = await Project.create(project);
     done();

@@ -17,7 +17,8 @@ module.exports = {
 
       if(!passwordCompare) return res.status(400).json({ message: 'As senhas não conferem' });
 
-      const token = generateToken({ id: user.id, isAdmin: user.isAdmin });
+
+      const token = generateToken({ id: user.id, role: user.role });
       const refreshToken = generateRefreshToken();
 
       await Token.create({ userId: user.id, token, refreshToken });
@@ -40,19 +41,19 @@ module.exports = {
   },
   async refresh(req, res){
     const { refreshToken } = req.body;
-    const { userId, isAdmin } = req.context;
+    const { userId, role } = req.context;
 
-    if (!userId || !isAdmin) return res.status(501).send({ message: 'Internal server error '});
+    if (!userId || !role) return res.status(501).send({ message: 'Internal server error '});
 
     try {
       await Token.findOneAndDelete({ refreshToken: refreshToken });
-      const token = generateToken({ id: userId, isAdmin });
+      const token = generateToken({ id: userId, role });
       const _refreshToken = generateRefreshToken();
       await Token.create({ refreshToken: _refreshToken, token, userId  });
       return res.status(201).json({ token, refreshToken: _refreshToken });
     } catch (error) {
       //eslint-disable-next-line
-      console.log('Error on refreshing token ========>');
+      console.log('Error on refreshing token ========>', error);
 
       return res.status(501).json({ message: 'Internal server error' });
     }

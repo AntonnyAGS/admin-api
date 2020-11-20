@@ -4,6 +4,9 @@ const request = require('supertest');
 const app = require('../../src/app');
 const mongoose = require('mongoose');
 
+const { UserRole } = require('../../src/enums');
+
+
 // Mocking nodemailer //
 jest.mock('nodemailer', () => {
   const sendMailMock = jest.fn();
@@ -26,7 +29,7 @@ const User = {
   ...UserCredentials,
   name: 'Pedro',
   password_repeat: '123456',
-  isAdmin: true
+  role: UserRole.ADMIN
 };
 
 beforeAll(async () => {
