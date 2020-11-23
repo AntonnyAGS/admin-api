@@ -2,7 +2,9 @@
 
 const { Group, User } = require('../models');
 const { printMembersName } = require('../helpers');
+const { show } = require('./UserController');
 const { ObjectId } = require('mongoose').Types;
+const { isValidObjectId } = require('mongoose');
 
 module.exports = {
   async store(req, res){
@@ -79,6 +81,25 @@ module.exports = {
         error: error,
         message: 'Não foi possível consultar os grupos'
       });
+    }
+  },
+  async show(req, res){
+    try {
+      const { groupId } = req.params;
+
+      if(!isValidObjectId(groupId))
+        return res.status(400).json({ message: 'O groupId informado não é válido'});
+
+      const group = await Group.aggregate([
+        {$lookup:{from: 'users', localField:'usersIds', foreignField: '_id', as: 'users'}},
+        {$project: {'users.password':0, 'users.isAdmin':0, usersIds:0}},
+        {$match: { _id: ObjectId(groupId)}}
+      ]);
+      return res.status(200).json(group[0]);
+    } catch(error){
+      //eslint-disable-next-line
+      console.log('Error on get user ======>', error);
+      return res.status(400).json({ message: 'Desculpe, não conseguimos consultar esse usuário'});
     }
   }
 };

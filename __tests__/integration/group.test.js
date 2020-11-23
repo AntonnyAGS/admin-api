@@ -80,11 +80,13 @@ beforeAll(async () => {
 
 });
 
+let groupCreated = null;
 
 describe('Group', () => {
   it('POST on /group', async(done) => {
     Group.usersIds = usersId;
     const responseGroup = await request(app).post('/group').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(Group);
+    groupCreated = responseGroup.body;
     expect(responseGroup.status).toBe(201);
     done();
   });
@@ -112,6 +114,12 @@ describe('Group', () => {
 
   it('GET on /group', async(done) => {
     const responseGroup = await request(app).get('/group').set('Authorization', `Bearer ${UserAuthenticated.token}`);
+    expect(responseGroup.status).toBe(200);
+    done();
+  });
+
+  it('GET on /group/groupId', async(done) => {
+    const responseGroup = await request(app).get('/group/'+groupCreated._id).set('Authorization', `Bearer ${UserAuthenticated.token}`);
     expect(responseGroup.status).toBe(200);
     done();
   });
