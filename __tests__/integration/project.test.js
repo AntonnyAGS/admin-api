@@ -120,15 +120,21 @@ describe('Group', () => {
     done();
   });
 
+  it('POST on /auth', async(done) => {
+    const response = await request(app).post('/auth').send({ email: 'thisshouldbevalidated@gmil.com', password: 'thisshouldbeencrypted'});
+    UserAuthenticated = response.body;
+    expect(response.status).toBe(200);
+    done();
+  });
+
   it('CREATE a project (MOCK IT)', async(done) => {
     const project = {
       name: 'Teste',
       description: 'Testeds',
-      clientId: ClientResponse._id,
-      status: 'WAITING',
-      groupsId: [responseGroup._id],
+      clientId: ClientResponse._id
     };
-    const response = await Project.create(project);
+    const response = await request(app).post('/project').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(project);
+    expect(response.status).toBe(201);
     done();
   });
 
