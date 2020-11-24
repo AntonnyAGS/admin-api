@@ -4,6 +4,12 @@ const { UserRole, PersonType } = require('../enums');
 
 
 module.exports = (req, res, next) => {
+  if(req.body.role === UserRole.ADMIN){
+    return res.status(400).json({
+      message: 'Impossível criar usuário administrador.'
+    });
+  }
+
   if (req.body.role === UserRole.CLIENT) {
     if (!req.body.personType || !Object.keys(PersonType).includes(req.body.personType)) {
       return res.status(400).json({
@@ -23,5 +29,14 @@ module.exports = (req, res, next) => {
       });
     }
   }
+
+  if (req.body.role === UserRole.STUDENT) {
+    if (!req.body.ra) {
+      return res.status(400).json({
+        message: 'Por favor, informe o ra do aluno.'
+      });
+    }
+  }
+
   next();
 };

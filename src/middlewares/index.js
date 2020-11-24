@@ -9,6 +9,7 @@ const creatingGroup = require('./creatingGroup');
 const validatingToken = require('./validatingToken');
 const creatingManyUsers = require('./creatingManyUsers');
 const creatingClientUser = require('./creatingClientUser');
+const creatingProject = require('./creatingProject');
 
 module.exports = {
   creatingUser,
@@ -19,5 +20,6 @@ module.exports = {
   creatingGroup,
   creatingManyUsers,
   checkingForgotPassword,
-  creatingClientUser
+  creatingClientUser,
+  creatingProject
 };

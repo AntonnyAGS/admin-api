@@ -29,7 +29,8 @@ const User = {
   ...UserCredentials,
   name: 'Pedro',
   password_repeat: '123456',
-  role: UserRole.ADMIN
+  role: UserRole.STUDENT,
+  ra: 'sdadsasdasda'
 };
 
 beforeAll(async () => {

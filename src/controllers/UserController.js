@@ -38,7 +38,10 @@ module.exports = {
   },
   async index(req, res){
     try {
-      const query = req.query;
+      const query = {
+        _id: { $ne: req.context.userId }
+      };
+
       const users = await User.find(query).select('-password');
       return res.status(200).json(users);
     } catch(error){

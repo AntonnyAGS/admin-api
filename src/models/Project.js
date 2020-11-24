@@ -19,7 +19,7 @@ const ProjectSchema = new Schema({
   },
   status: {
     type: ProjectStatus,
-    required: true
+    default: ProjectStatus.WAITING
   },
   groupsId: [{
     type: ObjectId,

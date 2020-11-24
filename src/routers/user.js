@@ -60,6 +60,57 @@ const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers, creatingCl
  *              type: string
  */
 user.post('/', [ creatingUser, creatingClientUser ], UserController.store);
+/**
+* @swagger
+* /user:
+*  post:
+*    tags:
+*      - user
+*    summary: Adiciona um novo usuário ao banco de dados.
+*    description: Use essa rota para criação de usuários admin.
+*    responses:
+*      '201':
+*        description: Success
+*    parameters:
+*      - in: body
+*        name: user
+*        required: true
+*        schema:
+*          type: object
+*          required:
+*            - name
+*            - email
+*            - password
+*            - password_repeat
+*            - role
+*          properties:
+*            name:
+*              type: string
+*            email:
+*              type: string
+*            password:
+*              type: string
+*            password_repeat:
+*              type: string
+*            role:
+*              type: string
+*              enum: [ADMIN, CLIENT, STUDENT]
+*            personType:
+*              description: Se o role for "CLIENT", tem que mandar isso.
+*              type: string
+*              enum: [PERSON, COMPANY]
+*            cpf:
+*              type: string
+*              description: Se o personType for "PERSON", tem que mandar isso.
+*            cnpj:
+*              type: string
+*              description: Se o personType for "COMPANY", tem que mandar isso.
+*            phone:
+*              type: string
+*            ra:
+*              type: string
+*/
+user.post('/create-admin', [ creatingUser, checkingAuth, checkingAdmin ], UserController.store);
 
 /**
  * @swagger
