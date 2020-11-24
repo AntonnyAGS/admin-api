@@ -97,8 +97,13 @@ describe('User', () => {
   });
   it('POST on /user/registermany', async(done) => {
     const response = await request(app).post('/user/registermany').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(users);
-    UserAuthenticated = response.body;
     expect(response.status).toBe(201);
+    done();
+  });
+
+  it('POST on /user/registermany with unavailable RA/email', async(done) => {
+    const response = await request(app).post('/user/registermany').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(users);
+    expect(response.status).toBe(400);
     done();
   });
 });
