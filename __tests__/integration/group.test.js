@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
+const bcrypt = require('bcryptjs');
 const { PersonType, UserRole } = require('../../src/enums');
+
+const { User: UserModel } = require('../../src/models');
 
 const mongo = new MongoMemoryServer();
 
@@ -27,6 +30,7 @@ const users = [
     name: 'Caio',
     password: '123456',
     password_repeat: '123456',
+    ra: '1654654',
     role: UserRole.STUDENT
   },
   {
@@ -34,6 +38,7 @@ const users = [
     name: 'João',
     password: '123456',
     password_repeat: '123456',
+    ra: '16546dsdsasda',
     role: UserRole.STUDENT
   },
   {
@@ -41,6 +46,7 @@ const users = [
     name: 'Aline',
     password: '123456',
     password_repeat: '123456',
+    ra: '165465sddsadsa4',
     role: UserRole.STUDENT
   },
 ];
@@ -74,7 +80,7 @@ beforeAll(async () => {
     usersId.push(response.body.user._id);
   }
 
-  await request(app).post('/user').send(User);
+  await UserModel.create({ ...User, password: await bcrypt.hash('123456', 10) });
   const responseAuth = await request(app).post('/auth').send(User);
   UserAuthenticated = responseAuth.body;
 
