@@ -7,10 +7,13 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const { PersonType, UserRole } = require('../../src/enums');
+const bcrypt = require('bcryptjs');
 
 const mongo = new MongoMemoryServer();
 
 const { Project } = require('../../src/models');
+
+const { User: UserModel } = require('../../src/models');
 
 const UserCredentials = {
   email: 'pedrinhomock@gatinhos.com',
@@ -29,21 +32,24 @@ const users = [
     name: 'Caio',
     password: '123456',
     password_repeat: '123456',
-    role: UserRole.STUDENT
+    role: UserRole.STUDENT,
+    ra: 'd122132132'
   },
   {
     email: 'joazinhomock@gatinhos.com',
     name: 'João',
     password: '123456',
     password_repeat: '123456',
-    role: UserRole.STUDENT
+    role: UserRole.STUDENT,
+    ra: 'dsadsasdsasda'
   },
   {
     email: 'alininhamock@gatinhos.com',
     name: 'Aline',
     password: '123456',
     password_repeat: '123456',
-    role: UserRole.STUDENT
+    role: UserRole.STUDENT,
+    ra: 'dsaew344332'
   },
 ];
 
@@ -80,7 +86,7 @@ beforeAll(async () => {
     usersId.push(response.body.user._id);
   }
 
-  await request(app).post('/user').send(User);
+  await UserModel.create({ ...User, password: await bcrypt.hash('123456', 10)});
   const responseAuth = await request(app).post('/auth').send(User);
   UserAuthenticated = responseAuth.body;
 
@@ -114,15 +120,21 @@ describe('Group', () => {
     done();
   });
 
+  it('POST on /auth', async(done) => {
+    const response = await request(app).post('/auth').send({ email: 'thisshouldbevalidated@gmil.com', password: 'thisshouldbeencrypted'});
+    UserAuthenticated = response.body;
+    expect(response.status).toBe(200);
+    done();
+  });
+
   it('CREATE a project (MOCK IT)', async(done) => {
     const project = {
       name: 'Teste',
       description: 'Testeds',
-      clientId: ClientResponse._id,
-      status: 'WAITING',
-      groupsId: [responseGroup._id],
+      clientId: ClientResponse._id
     };
-    const response = await Project.create(project);
+    const response = await request(app).post('/project').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(project);
+    expect(response.status).toBe(201);
     done();
   });
 

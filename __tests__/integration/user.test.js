@@ -8,8 +8,10 @@ const { PersonType, UserRole } = require('../../src/enums');
 
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
+const { User: UserModel } = require('../../src/models');
 
 const mongo = new MongoMemoryServer();
+const bcrypt = require('bcryptjs');
 
 const UserCredentials = {
   email: 'joazinhomock@gatinhos.com',
@@ -63,8 +65,7 @@ beforeAll(async () => {
 });
 describe('User', () => {
   it('POST on /user', async (done) => {
-    const response = await request(app).post('/user').send(User);
-    expect(response.status).toBe(201);
+    await UserModel.create({...User, password: await bcrypt.hash('123456', 10)});
     done();
   });
   it('POST on /auth', async(done) => {
