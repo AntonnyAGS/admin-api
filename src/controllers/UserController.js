@@ -8,10 +8,19 @@ module.exports = {
   async store(req, res){
     try {
       const { email, password, ra } = req.body;
-      const userExists = await User.findOne({ email, ra });
+
+      let query = {  email };
+      let message = 'Este email já existe.';
+
+      if (ra) {
+        query = { $or: [ { 'email': email }, { 'ra': ra } ] };
+        message = 'Este email ou ra já existe.';
+      }
+
+      const userExists = await User.findOne(query);
 
       if (userExists) {
-        return res.status(404).json({ message: 'Este email já existe' });
+        return res.status(400).json({ message });
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
