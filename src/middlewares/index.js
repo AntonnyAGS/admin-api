@@ -10,6 +10,7 @@ const validatingToken = require('./validatingToken');
 const creatingManyUsers = require('./creatingManyUsers');
 const creatingClientUser = require('./creatingClientUser');
 const creatingProject = require('./creatingProject');
+const storeFile = require('./storeFile');
 
 module.exports = {
   creatingUser,
@@ -21,5 +22,6 @@ module.exports = {
   creatingManyUsers,
   checkingForgotPassword,
   creatingClientUser,
-  creatingProject
+  creatingProject,
+  storeFile
 };
