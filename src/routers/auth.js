@@ -62,4 +62,30 @@ auth.post('/', authorizingUser, AuthController.authenticate);
  */
 auth.post('/refresh-token', validatingToken, AuthController.refresh);
 
+/**
+ * @swagger
+ * /logout:
+ *  post:
+ *    tags:
+ *      - auth
+ *    description: Use essa rota fazer destruir um token de acesso.
+ *    summary: Exclui um token válido do banco de dados.
+ *    parameters:
+ *      - in: body
+ *        name: user
+ *        required: true
+ *        schema:
+ *          type: object
+ *          required:
+ *            - refreshToken
+ *          properties:
+ *            refreshToken:
+ *              type: string
+ *    responses:
+ *      '200':
+ *        description: Success
+ */
+auth.post('/logout', validatingToken, AuthController.logout);
+
+
 module.exports = auth;

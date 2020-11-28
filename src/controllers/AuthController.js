@@ -57,5 +57,20 @@ module.exports = {
 
       return res.status(501).json({ message: 'Internal server error' });
     }
+  },
+  async logout(req, res){
+    try {
+      const { refreshToken } = req.body;
+      if (!refreshToken) {
+        return res.status(404).json({ message: 'Por favor informe o refresh token' });
+      }
+
+      await Token.findOneAndRemove({ refreshToken });
+      return res.status(200).json({ logout: true });
+    } catch (error) {
+      //eslint-disable-next-line
+      console.log('Error on logout ==========>', error);
+      return res.status(500).json({ error, message: 'Internal server error' });
+    }
   }
 };
