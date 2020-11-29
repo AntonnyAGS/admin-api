@@ -1,11 +1,19 @@
 'use strict';
 
 const { validateEmail } = require('../helpers');
+const { UserRole } = require('../enums');
 
 module.exports = (req, res, next) => {
   const { body: users } = req;
 
   for(let user of users){
+
+    if (!user.role || !Object.keys(UserRole).includes(user.role)) {
+      return res.status(400).json({
+        message: 'Por favor, informe um role válido',
+        user
+      });
+    }
 
     if (!user.name || user.name.length < 3){
       return res.status(400).json({

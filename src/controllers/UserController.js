@@ -3,6 +3,7 @@
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
 const { isValidObjectId } = require('mongoose');
+const user = require('../routers/user');
 
 module.exports = {
   async store(req, res){
@@ -78,14 +79,43 @@ module.exports = {
     try {
       const { body: users  } = req;
 
+      const usersEmail = users.map((e) => e.email);
+      const usersRa = users.map((e) => e.ra);
+
+      const userExists = await User.find({
+        $or:[
+          {email: {$in : usersEmail }},
+          {ra: {$in : usersRa}}
+        ]
+      }).select('-password');
+
+      const existsRa = userExists.filter((e) => usersRa.indexOf(e.ra) > -1);
+      const existsEmails = userExists.filter((e) => usersEmail.indexOf(e.email) > -1);
+
+      if (existsRa.length && existsEmails.length){
+        return res.status(400).json({
+          message: 'Desculpe, já existem usuários com os RA`s/Email`s informados',
+          unavailableRa: existsRa,
+          unavailableEmails: existsEmails
+        });
+      }
+
+      if(existsRa.length){
+        return res.status(400).json({
+          message: 'Desculpe, já existem usuários com os RA`s informados',
+          unavailableRa: existsRa
+        });
+      }
+
+      if(existsEmails.length){
+        return res.status(400).json({
+          message: 'Desculpe, já existem usuários com os Email`s informados',
+          unavailableEmails: existsEmails
+        });
+      }
+
       for(let i in users){
         let user = users[i];
-        const userExists = await User.findOne({ email: user.email, ra: user.ra });
-        if (userExists){
-          return res.status(400).json({
-            message: `Desculpe, já existe um usuário com o e-mail ${user.email}`
-          });
-        }
 
         const hashedPassword = await bcrypt.hash(user.password, 10);
 
