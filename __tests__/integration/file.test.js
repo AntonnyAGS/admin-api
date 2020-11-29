@@ -177,6 +177,12 @@ describe('Group', () => {
     expect(response.status).toBe(200);
     done();
   });
+
+  it('GET on /file', async(done) => {
+    const response = await request(app).get('/file').set('Authorization', `Bearer ${AdminAuthenticated.token}`);
+    expect(response.status).toBe(200);
+    done();
+  });
 });
 
 afterAll(async () => {

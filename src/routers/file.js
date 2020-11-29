@@ -45,10 +45,14 @@ file.post('/:projectId', [checkingAuth,checkingAdmin, storeFile ], FileControlle
  * @swagger
  * /file/{projectId}:
  *  get:
- *    description: Use essa rota para listar arquivos de um determinado grupo.
+ *    description: Use essa rota para listar arquivos de um determinado projeto.
  *    tags:
  *      - file
- *    summary: Lista os arquivos por grupo.
+ *    summary: Lista os arquivos por projeto.
+ *    parameters:
+ *      - in: header
+ *        name: Authorization
+ *        schema: bearer
  *    responses:
  *      '200':
  *        description: Success
@@ -70,5 +74,40 @@ file.post('/:projectId', [checkingAuth,checkingAdmin, storeFile ], FileControlle
  *                      type: string
  */
 file.get('/:projectId', checkingAuth, FileController.showByProjectId);
+
+/**
+ * @swagger
+ * /file:
+ *  get:
+ *    description: Use essa rota para listar todos os arquivos.
+ *    tags:
+ *      - file
+ *    summary: Lista todos os arquivos.
+ *    parameters:
+ *      - in: header
+ *        name: Authorization
+ *        schema: bearer
+ *    responses:
+ *      '200':
+ *        description: Success
+ *        schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                  _id:
+ *                      type: string
+ *                  projectId:
+ *                      type: string
+ *                  fileName:
+ *                      type: string
+ *                  fileType:
+ *                      type: string
+ *                      enum: [LOGO, REQUIREMENTS_DOCUMENT]
+ *                  fileUrl:
+ *                      type: string
+ */
+file.get('/', checkingAuth, FileController.index);
+
 
 module.exports = file;

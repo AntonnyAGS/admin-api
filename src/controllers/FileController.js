@@ -151,5 +151,37 @@ module.exports = {
       });
 
     }
+  },
+  async index(req,res){
+    try {
+      const query = req.query;
+
+      const projectFiles = await File.find(query);
+
+      const bucket = storage.bucket(process.env.GOOGLE_STORAGE_BUCKET);
+
+      const files = projectFiles.map(file => {
+        const storageFile = bucket.file(`projectFiles/${file.projectId}/${file.fileType}-${file.fileName}`);
+        return {
+          _id: file._id,
+          projectId: file.projectId,
+          fileName: file.fileName,
+          fileType: file.fileType,
+          fileUrl: `https://storage.googleapis.com/${process.env.GOOGLE_STORAGE_BUCKET}/${storageFile.name}`,
+          createdAt: file.createdAt,
+          updatedAt: file.updatedAt,
+          updatedFile: file.updatedFile
+        };
+      });
+
+      return res.status(200).json(files);
+    } catch (error) {
+      //eslint-disable-next-line
+      console.log(error);
+      return res.status(500).json({
+        message: 'Erro ao listar arquivos'
+      });
+
+    }
   }
 };
