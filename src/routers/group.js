@@ -116,5 +116,6 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *                                  type: string
  */
 group.get('/', [ checkingAuth, checkingAdmin ], GroupController.index);
+group.get('/:groupId', [ checkingAuth, checkingAdmin ], GroupController.show);
 
 module.exports = group;
