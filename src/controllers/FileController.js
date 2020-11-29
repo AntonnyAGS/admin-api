@@ -5,6 +5,7 @@ const { isValidObjectId } = require('mongoose');
 const storage = require('../config/storage');
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 module.exports = {
   async store(req, res){
@@ -30,9 +31,18 @@ module.exports = {
       for(let file of files){
         const { base64, fileName, fileType } = file;
 
+        const tag = crypto.createHash('md5').update(projectId+fileType+fileName).digest('hex');
+
+        const fileExists = await File.find({tag}).select('+tag');
+        let isUpdated = false;
+
+        if(fileExists.length){
+          isUpdated = true;
+        }
+
         const filePath = path.join(__dirname, `../TEMP/${fileType}-${fileName}`);
 
-        fs.writeFile(filePath, base64, { encoding: 'base64' }, async () => {
+        fs.writeFile(filePath, base64, { encoding: 'base64' }, () => {
           bucket.upload(filePath, {
             gzip: true,
             metadata: {
@@ -44,17 +54,44 @@ module.exports = {
             fs.unlink(filePath,() => {});
           });
         });
+
+        files[files.indexOf(file)].tag = tag;
+        files[files.indexOf(file)].isUpdated = isUpdated;
+
       }
 
-      const allFiles = files.map(value => {
+      const updatedAt = new Date().toISOString();
+
+      const allNewFiles = files.filter(value => !value.isUpdated).map(value => {
         return {
           projectId: projectId,
           fileName: value.fileName,
           fileType: value.fileType,
+          tag: value.tag
         };
       });
 
-      const projectFiles = await File.insertMany(allFiles);
+      const updatedFilesTags = files.filter(value => value.isUpdated).map(value => value.tag);
+
+      const projectFiles = [];
+
+      if(allNewFiles.length){
+        projectFiles.push(...(await File.insertMany(allNewFiles)));
+      }
+
+      if(updatedFilesTags.length){
+        const queryUpdate = {
+          tag: {
+            $in: updatedFilesTags
+          }
+        };
+
+        await File.updateMany(queryUpdate, { updatedAt });
+
+        const storedFiles = await File.find(queryUpdate);
+        projectFiles.push(...storedFiles);
+
+      }
 
       return res.status(201).json(projectFiles);
     }catch(error){
@@ -100,7 +137,8 @@ module.exports = {
           fileType: file.fileType,
           fileUrl: `https://storage.googleapis.com/${process.env.GOOGLE_STORAGE_BUCKET}/${storageFile.name}`,
           createdAt: file.createdAt,
-          updatedAt: file.updatedAt
+          updatedAt: file.updatedAt,
+          updatedFile: file.updatedFile
         };
       });
 

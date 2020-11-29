@@ -3,7 +3,7 @@
 const { Schema, model } = require('mongoose');
 const { FileType } = require('../enums');
 
-const ProjectFileSchema = new Schema({
+const FileSchema = new Schema({
   projectId: {
     type: Schema.Types.ObjectId,
     required: true
@@ -15,6 +15,11 @@ const ProjectFileSchema = new Schema({
   fileType: {
     type: FileType,
     required: true
+  },
+  tag: {
+    type: String,
+    required: true,
+    select: false
   }
 },
 {
@@ -22,4 +27,4 @@ const ProjectFileSchema = new Schema({
 }
 );
 
-module.exports = model('ProjectFile', ProjectFileSchema);
+module.exports = model('File', FileSchema);
