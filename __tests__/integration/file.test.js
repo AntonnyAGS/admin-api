@@ -64,6 +64,7 @@ const Group = {
 };
 
 let UserAuthenticated = null;
+let AdminAuthenticated = null;
 const usersId = [];
 
 let responseGroup = null;
@@ -94,7 +95,7 @@ beforeAll(async () => {
 
   await UserModel.create({ ...User, password: await bcrypt.hash('123456', 10)});
   const responseAuth = await request(app).post('/auth').send(User);
-  UserAuthenticated = responseAuth.body;
+  AdminAuthenticated = responseAuth.body;
 
 });
 
@@ -103,7 +104,7 @@ describe('Group', () => {
   it('POST on /group', async(done) => {
     Group.usersIds = usersId;
 
-    responseGroup = await request(app).post('/group').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(Group);
+    responseGroup = await request(app).post('/group').set('Authorization', `Bearer ${AdminAuthenticated.token}`).send(Group);
     expect(responseGroup.status).toBe(201);
     done();
   });
@@ -145,7 +146,7 @@ describe('Group', () => {
     done();
   });
 
-  it('Store a project file', async(done) => {
+  it('POST /file/{projectId}', async(done) => {
     const projectFiles = [
       {
         base64: 'QXJxdWl2byBkZSB0ZXN0ZQ==',
@@ -153,10 +154,8 @@ describe('Group', () => {
         fileType: FileType.REQUIREMENTS_DOCUMENT
       }
     ];
-    const response = await request(app).post(`/file/${projectId}`).set('Authorization', `Bearer ${UserAuthenticated.token}`).send(projectFiles);
-    //eslint-disable-next-line
-    console.log(response.body);
-    expect(response.status).toBe(200);
+    const response = await request(app).post(`/file/${projectId}`).set('Authorization', `Bearer ${AdminAuthenticated.token}`).send(projectFiles);
+    expect(response.status).toBe(201);
     done();
   });
 
@@ -168,8 +167,14 @@ describe('Group', () => {
         fileType: FileType.REQUIREMENTS_DOCUMENT
       }
     ];
-    const response = await request(app).post('/file/5fc00bdfa9f5e4d86698ad8b').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(projectFiles);
+    const response = await request(app).post('/file/5fc00bdfa9f5e4d86698ad8b').set('Authorization', `Bearer ${AdminAuthenticated.token}`).send(projectFiles);
     expect(response.status).toBe(400);
+    done();
+  });
+
+  it('GET on /file/{projectId}', async(done) => {
+    const response = await request(app).get(`/file/${projectId}`).set('Authorization', `Bearer ${AdminAuthenticated.token}`);
+    expect(response.status).toBe(200);
     done();
   });
 });

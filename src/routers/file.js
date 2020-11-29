@@ -2,18 +2,18 @@
 
 const express = require('express');
 const { FileController } = require('../controllers');
-const { checkingAuth, storeFile } = require('../middlewares');
+const { checkingAuth, storeFile, checkingAdmin } = require('../middlewares');
 
 const file = express.Router();
 
 // Routes
 /**
  * @swagger
- * /user/registermany:
+ * /file/{prjectId}:
  *  post:
  *    description: Use essa rota para armazenar arquivos no storage.
  *    tags:
- *      - user
+ *      - file
  *    summary: Armazena arquivo no storage.
  *    responses:
  *      '201':
@@ -37,9 +37,38 @@ const file = express.Router();
  *                  required:
  *                      - base64
  *                      - fileName
- *                      - fileExtension
  *                      - fileType
  */
-file.post('/:projectId', [ storeFile ], FileController.store);
+file.post('/:projectId', [checkingAuth,checkingAdmin, storeFile ], FileController.store);
+
+/**
+ * @swagger
+ * /file/{projectId}:
+ *  get:
+ *    description: Use essa rota para listar arquivos de um determinado grupo.
+ *    tags:
+ *      - file
+ *    summary: Lista os arquivos por grupo.
+ *    responses:
+ *      '200':
+ *        description: Success
+ *        schema:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                  _id:
+ *                      type: string
+ *                  projectId:
+ *                      type: string
+ *                  fileName:
+ *                      type: string
+ *                  fileType:
+ *                      type: string
+ *                      enum: [LOGO, REQUIREMENTS_DOCUMENT]
+ *                  fileUrl:
+ *                      type: string
+ */
+file.get('/:projectId', checkingAuth, FileController.showByProjectId);
 
 module.exports = file;

@@ -8,23 +8,21 @@ const path = require('path');
 
 module.exports = {
   async store(req, res){
-    const { projectId } = req.params;
-
-    if(!isValidObjectId(projectId)){
-      return res.status(400).json({
-        message: 'O id do projeto passada na URL é inválida'
-      });
-    }
-
-    const projectExists = await Project.findOne({_id : projectId});
-
-    if(!projectExists){
-      return res.status(400).json({
-        message: 'Não existe um projeto com id informado'
-      });
-    }
-
     try{
+      const { projectId } = req.params;
+
+      if(!isValidObjectId(projectId)){
+        return res.status(400).json({
+          message: 'O id do projeto passada na URL é inválida'
+        });
+      }
+
+      const projectExists = await Project.findOne({_id : projectId});
+      if(!projectExists){
+        return res.status(400).json({
+          message: 'Não existe um projeto com id informado'
+        });
+      }
 
       const files = req.body;
       const bucket = storage.bucket(process.env.GOOGLE_STORAGE_BUCKET);
@@ -34,26 +32,19 @@ module.exports = {
 
         const filePath = path.join(__dirname, `../TEMP/${fileType}-${fileName}`);
 
-        fs.writeFile(filePath, base64, { encoding: 'base64' }, () => {});
-
-        await bucket.upload(filePath, {
-          gzip: true,
-          metadata: {
-            cacheControl: 'no-cache'
-          },
-          public: true,
-          destination: `projectFiles/${projectId}/${fileType}-${fileName}`
+        fs.writeFile(filePath, base64, { encoding: 'base64' }, async () => {
+          bucket.upload(filePath, {
+            gzip: true,
+            metadata: {
+              cacheControl: 'no-cache'
+            },
+            public: true,
+            destination: `projectFiles/${projectId}/${fileType}-${fileName}`
+          }, () => {
+            fs.unlink(filePath,() => {});
+          });
         });
-
-        fs.unlink(filePath,() => {});
-
-        //eslint-disable-next-line
-        console.log(filePath);
-
       }
-
-      //eslint-disable-next-line
-      console.log('saiu do for');
 
       const allFiles = files.map(value => {
         return {
@@ -62,20 +53,65 @@ module.exports = {
           fileType: value.fileType,
         };
       });
-      //eslint-disable-next-line
-            console.log('saiu do map');
+
       const projectFiles = await File.insertMany(allFiles);
-      //eslint-disable-next-line
-            console.log('inseriu no mongo');
-      return res.status(200).json({
-        ...projectFiles
-      });
+
+      return res.status(201).json(projectFiles);
     }catch(error){
       //eslint-disable-next-line
       console.log(error);
       return res.status(500).json({
         message: 'Erro ao importar o arquivo'
       });
+    }
+  },
+  async showByProjectId(req, res){
+    try {
+      const { projectId } = req.params;
+
+      if(!isValidObjectId(projectId)){
+        return res.status(400).json({
+          message: 'O id do projeto passada na URL é inválida'
+        });
+      }
+
+      const projectExists = await Project.findOne({_id : projectId});
+      if(!projectExists){
+        return res.status(400).json({
+          message: 'Não existe um projeto com id informado'
+        });
+      }
+
+      const projectFiles = await File.find({projectId});
+      if(projectFiles.length < 0){
+        return res.status(400).json({
+          message: 'Não existem arquivos para o projeto informado'
+        });
+      }
+
+      const bucket = storage.bucket(process.env.GOOGLE_STORAGE_BUCKET);
+
+      const files = projectFiles.map(file => {
+        const storageFile = bucket.file(`projectFiles/${projectId}/${file.fileType}-${file.fileName}`);
+        return {
+          _id: file._id,
+          projectId: file.projectId,
+          fileName: file.fileName,
+          fileType: file.fileType,
+          fileUrl: `https://storage.googleapis.com/${process.env.GOOGLE_STORAGE_BUCKET}/${storageFile.name}`,
+          createdAt: file.createdAt,
+          updatedAt: file.updatedAt
+        };
+      });
+
+      return res.status(200).json(files);
+    } catch (error) {
+      //eslint-disable-next-line
+      console.log(error);
+      return res.status(500).json({
+        message: 'Erro ao listar arquivos'
+      });
+
     }
   }
 };
