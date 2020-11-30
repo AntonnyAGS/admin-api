@@ -171,7 +171,7 @@ user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
 
 /**
  * @swagger
- * /user/registermany:
+ * /user/register-many:
  *  post:
  *    description: Use essa rota para criação de usuários admin.
  *    tags:
