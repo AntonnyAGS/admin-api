@@ -68,7 +68,7 @@ module.exports = {
       const query = req.query;
       const groups = await Group.aggregate([
         {$lookup:{from: 'users', localField:'usersIds', foreignField: '_id', as: 'users'}},
-        {$project: {'users.password':0, 'users.isAdmin':0, usersIds:0}},
+        {$project: {'users.password':0, 'users.role':0, usersIds:0}},
         {$match: query}
       ]);
 
@@ -92,7 +92,7 @@ module.exports = {
 
       const group = await Group.aggregate([
         {$lookup:{from: 'users', localField:'usersIds', foreignField: '_id', as: 'users'}},
-        {$project: {'users.password':0, 'users.isAdmin':0, usersIds:0}},
+        {$project: {'users.password':0, 'users.role':0, usersIds:0}},
         {$match: { _id: ObjectId(groupId)}}
       ]);
       return res.status(200).json(group[0]);

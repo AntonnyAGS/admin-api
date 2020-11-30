@@ -120,7 +120,7 @@ module.exports = {
       }
 
       const projectFiles = await File.find({projectId});
-      if(projectFiles.length < 0){
+      if(projectFiles.length === 0){
         return res.status(400).json({
           message: 'Não existem arquivos para o projeto informado'
         });
