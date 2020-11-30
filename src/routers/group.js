@@ -49,10 +49,6 @@ const group = express.Router();
  *      - in: header
  *        name: Authorization
  *        schema: bearer
- *      - in: query
- *        name: isAdmin
- *        schema:
- *          type: boolean
  *      - in: body
  *        name: group
  *        schema:
@@ -82,10 +78,6 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *      - in: header
  *        name: Authorization
  *        schema: bearer
- *      - in: query
- *        name: isAdmin
- *        schema:
- *          type: boolean
  *    responses:
  *      '200':
  *        description: Success
