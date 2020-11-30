@@ -95,7 +95,7 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *          items:
  *              type: object
  *              properties:
- *                  id:
+ *                  _id:
  *                      type: string
  *                  groupName:
  *                      type: string

@@ -96,8 +96,8 @@ describe('User', () => {
     expect(response.status).toBe(200);
     done();
   });
-  it('POST on /user/registermany', async(done) => {
-    const response = await request(app).post('/user/registermany').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(users);
+  it('POST on /user/register-many', async(done) => {
+    const response = await request(app).post('/user/register-many').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(users);
     UserAuthenticated = response.body;
     expect(response.status).toBe(201);
     done();
