@@ -19,4 +19,9 @@ const UserRole = Object.freeze({
   CLIENT: 'CLIENT'
 });
 
-module.exports = { ProjectStatus, PersonType, UserRole };
+const FileType = Object.freeze({
+  LOGO: 'LOGO',
+  REQUIREMENTS_DOCUMENT: 'REQUIREMENTS_DOCUMENT'
+});
+
+module.exports = { ProjectStatus, PersonType, UserRole, FileType };

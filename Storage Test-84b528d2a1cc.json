@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "storage-test-296611",
+  "private_key_id": "84b528d2a1cc2657eff556d8ff39d2abad8f22df",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6VZNAgNtl/XrZ\nP+lLizcx7KXlhsDhw1f/V94zy46CGqRsGixntN8ZHxUXoCPNs2+hcn1EQks1XyUp\nSVf0Ngf6TZhVcjuHgbElPFmTmzshl7c8UpuQYT3fDsjjzuCHnSnjP2qjYFHYrAyw\n+YpcBsWWayGKkxUynPXgXReqaSW590/NaSM167llr5I3SvRhS0c6usZrE6YisgDE\nUwzg0RgdR0//vLqd35m8PqaW8mx9BW1iikXgYHUpfeOOLYatTZq3Ek5+fB9xd0jU\nXlaebZ2AUxEAf2ZK6Iqql7C6hHPC/QUhB9XJfPlbKuBAb9XLQ75j/hhIWB5kmSx5\nDZALH1V3AgMBAAECggEAFPnEKUs4J3uI5ELjDst9q6ORq0xnkyKL2eU40MjV4oSA\nROEPZZ9BTBEpLS8sSKAt7VU3j8MMt1XeF483lPiuHjm07817sQ3i9KeeB9U+K1Jq\nYKKF+5NOxTjjWW207d8902SUqw6ROBxqE1QMBL8IaB3oOTLEfJ2ZuieQnfDXO99P\na5pFWFHBomuUG6F6uASjQPyrNTWemX6wbOzxeZGrgByD1dDYOYSVaMIwT8mVGp3l\nVkr/GEX7ChV9p/k/DG9M/adibkYdvl5961+3IIzQQJ0vRPIPjMhax+zYDi9FIqrh\nzN8E4Y6flaLfRiC6D5QIXj4NemHEewQzQ1ce/sXm8QKBgQDsUFGSSIJzeaJCkeDt\nu4T9+91Ew8vtWhIkh7ktb2CeUXiI3H8iRwXVS+fPtqfSwfIwjwxiD8WCVtTEz5Kb\nn95fK3fvBgThxbGIXdeQdmj1s2kzBZQou+Uw47Teug3sxuVAWE7r0vWzgWbRwTmX\nndycSezvIUfdYsZXYcun4dXicQKBgQDJ22IIy7bCk3j8C9z5q3ho3tFsj1xFWY6H\nxc9QfuFwhXzIjIO0ibFlc+jxE1bERCP7ZH3tse2BrlQdJkrdQL5rul2gocHc5JXx\nQYjkBh5FYEl8vvaJFr7v7o+t9vqD7uxt68IiqQr9UYR0V3rxSeffWLz4fOudit2H\nFWevA43aZwKBgEX2pZ/kndKoYVTKMcjQqtgzWFhCi76y2wo7sKR2BCn7Pu9uMKmq\nU1zKA1Co6FjqmNStlWH2/2fOY2H9fo9arpCIoxJ+OrXJPP19oxOfKwYLXwr/DNVe\ng8WMtQD4HqVKYZdCTeNd6uaBWjqhtXZhA262KFLIDKnL06MNTilfIF7RAoGAE7fs\nkbNkvQku7mAyS+lmL8hkaNhwSQ4AkF7Qa6qZVyaTE/w1+XLh82kpPjOHbFDDuxEM\nBCY3b02aReaxtX9Xmqpv7vseNvfVdeXS+4NlfZ10UE1PRAEG0eVZ/8J6oly6l9pJ\n8pzUx/4olDzfc6amkfjXLOb3FUK1dTawFDaiqs0CgYEAwlnS3C20O+5xk/YisL+X\nSv0zlhEi+aC6cUid8xVL1rI6MOL+GCNzheQtUqTW9l2D8e/qxTQ1yihYVdy3jPWA\npH9kmzf0F3PczJOx8jVQZu9/pH2nL1MLp2qrtTVQihQsLsXVDSjCqKOQjJNqdrng\nioB3aNCOXoObmVMONccbQ4g=\n-----END PRIVATE KEY-----\n",
+  "client_email": "fabrica-de-software-beta@storage-test-296611.iam.gserviceaccount.com",
+  "client_id": "108521677748291030910",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fabrica-de-software-beta%40storage-test-296611.iam.gserviceaccount.com"
+}

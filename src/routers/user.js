@@ -133,13 +133,37 @@ user.post('/create-admin', [ creatingUser, checkingAuth, checkingAdmin ], UserCo
  *        schema: bearer
  *        required: true
  *      - in: query
- *        name: isAdmin
+ *        name: role
  *        schema:
- *          type: boolean
+ *          type: string
+ *          enum: [ADMIN, CLIENT, STUDENT]
  *        required: true
  *    responses:
  *      '200':
  *        description: Success
+ *        schema:
+ *          type: array
+ *          items:
+ *              type: object
+ *              properties:
+ *                _id:
+ *                  type: string
+ *                name:
+ *                  type: string
+ *                role:
+ *                  type: string
+ *                  enum: [ADMIN, CLIENT, STUDENT]
+ *                email:
+ *                  type: string
+ *                phone:
+ *                  type: string
+ *                cpf:
+ *                  type: string
+ *                personType:
+ *                  type: string
+ *                  enum: [COMPANY, PERSON]
+ *                cnpj:
+ *                  type: string
  */
 user.get('/', [ checkingAuth, checkingAdmin ], UserController.index);
 
@@ -147,7 +171,7 @@ user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
 
 /**
  * @swagger
- * /user/registermany:
+ * /user/register-many:
  *  post:
  *    description: Use essa rota para criação de usuários admin.
  *    tags:
@@ -179,6 +203,6 @@ user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
  *                      - email
  *                      - password
  */
-user.post('/registermany', [checkingAuth, checkingAdmin, creatingManyUsers], UserController.storeMany);
+user.post('/register-many', [checkingAuth, checkingAdmin, creatingManyUsers], UserController.storeMany);
 
 module.exports = user;
