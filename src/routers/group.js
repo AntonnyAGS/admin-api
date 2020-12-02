@@ -24,7 +24,7 @@ const group = express.Router();
  *          properties:
  *              _id:
  *                  type: string
- *              groupName:
+ *              name:
  *                  type: string
  *              createdAt:
  *                  type: string
@@ -54,10 +54,10 @@ const group = express.Router();
  *        schema:
  *          type: object
  *          required:
- *            - groupName
+ *            - name
  *            - userId:
  *          properties:
- *            groupName:
+ *            name:
  *              type: string
  *            usersIds:
  *              type: array
@@ -89,7 +89,7 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *              properties:
  *                  _id:
  *                      type: string
- *                  groupName:
+ *                  name:
  *                      type: string
  *                  users:
  *                      type: array

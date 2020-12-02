@@ -9,7 +9,7 @@ const { isValidObjectId } = require('mongoose');
 module.exports = {
   async store(req, res){
     try {
-      const { groupName,  usersIds} = req.body;
+      const { name,  usersIds} = req.body;
 
       const membersWithManyGroups = [];
       const memberNotExists = [];
@@ -39,7 +39,7 @@ module.exports = {
       }
 
       const group = await Group.create({
-        groupName,
+        name,
         usersIds
       });
 
@@ -47,7 +47,7 @@ module.exports = {
 
       return res.status(201).json({
         _id: populatedGroup._id,
-        groupName: populatedGroup.groupName,
+        name: populatedGroup.name,
         createdAt: populatedGroup.createdAt,
         updatedAt: populatedGroup.updatedAt,
         usersIds: populatedGroup.usersIds
