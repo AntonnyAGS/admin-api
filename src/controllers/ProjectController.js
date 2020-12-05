@@ -1,5 +1,6 @@
 'use strict';
 
+const { get } = require('http');
 const { Project } = require('../models');
 
 module.exports = {
@@ -31,5 +32,28 @@ module.exports = {
 
       return res.status(500).json({ message: 'Desculpe, não foi possível criar o projeto '});
     }
+  },
+  async get(req, res) {
+    try {
+      const { id } = req.params;
+
+      const project = await Project.findById(id)
+        .populate({ path: 'clientId', select: '-password' })
+        .populate({ path: 'groupsId', populate: { path: 'usersIds', select: '-password' } });
+
+      const result = {
+        ...project.toObject(),
+        client: project.clientId,
+        groups: project.groupsId
+      };
+      return res.status(200).json(result);
+
+    } catch (error) {
+      // eslint-disable-next-line
+      console.log('Error on get projects =======>', error);
+
+      return res.status(500).json({ message: `Não foi possível listar o projeto ${id}`, error });
+    }
+
   }
 };

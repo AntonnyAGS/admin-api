@@ -6,7 +6,7 @@ const project = express.Router();
 
 const { ProjectController } = require('../controllers');
 
-const { checkingAuth, creatingProject } = require('../middlewares');
+const { checkingAuth, creatingProject, getOneProject } = require('../middlewares');
 
 // Routes
 /**
@@ -23,7 +23,20 @@ const { checkingAuth, creatingProject } = require('../middlewares');
  */
 project.get('/', checkingAuth, ProjectController.index);
 
-// Routes
+/**
+ * @swagger
+ * /project:
+ *  get:
+ *    tags:
+ *      - project
+ *    description: Use essa rota para pegar um projeto.
+ *    summary: Listar um projetos.
+ *    responses:
+ *      '200':
+ *        description: Success
+ */
+project.get('/:id', [checkingAuth, getOneProject], ProjectController.get);
+
 /**
  * @swagger
  * /project:

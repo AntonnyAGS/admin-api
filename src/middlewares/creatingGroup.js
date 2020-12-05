@@ -7,7 +7,7 @@ const { ObjectId } = require('mongoose').Types;
 module.exports = (req, res, next) => {
   const { usersIds } = req.body;
 
-  if(!usersIds || usersIds.length < 3)
+  if(!usersIds || usersIds.length < 1)
     return res.status(400).json({ message: 'É necessário inserir no minimo 3 integrantes'});
 
   let invalidIds = [];
