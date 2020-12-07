@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
     if (!item.studentId) {
       return res.status(400).json({ message: 'O campo studentId é obrigatório. '});
     }
-    if (!item.score) {
+    if (!item.score && item.score !== 0) {
       return res.status(400).json({ message: 'O campo score é obrigatório. '});
     }
     if (!item.scoresType) {
