@@ -1,6 +1,5 @@
 'use strict';
 
-const { get } = require('http');
 const { Project } = require('../models');
 
 module.exports = {
@@ -55,5 +54,20 @@ module.exports = {
       return res.status(500).json({ message: `Não foi possível listar o projeto ${id}`, error });
     }
 
+  },
+  async update(req, res) {
+    try {
+      const { _id } = req.body;
+
+      const project = await Project.findByIdAndUpdate(_id, req.body, { new: true });
+
+      return res.status(200).json(project);
+
+    } catch (error) {
+      //eslint-disable-next-line
+      console.log('Error on updating project =========>', error);
+
+      return res.status(500).json({ message: 'Desculpe, não foi possível atualziar o projeto '});
+    }
   }
 };

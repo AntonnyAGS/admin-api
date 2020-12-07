@@ -24,4 +24,10 @@ const FileType = Object.freeze({
   REQUIREMENTS_DOCUMENT: 'REQUIREMENTS_DOCUMENT'
 });
 
-module.exports = { ProjectStatus, PersonType, UserRole, FileType };
+const ScoreType = Object.freeze({
+  DEVELOPMENT: 'DEVELOPMENT',
+  PRESENTATION: 'PRESENTATION',
+  FINAL: 'FINAL'
+});
+
+module.exports = { ProjectStatus, PersonType, UserRole, FileType, ScoreType };
