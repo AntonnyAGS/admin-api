@@ -110,4 +110,67 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
 group.get('/', [ checkingAuth, checkingAdmin ], GroupController.index);
 group.get('/:groupId', [ checkingAuth, checkingAdmin ], GroupController.show);
 
+
+/**
+ * @swagger
+ * /group:
+ *  put:
+ *    tags:
+ *      - group
+ *    description: Use essa rota para atualizar um grupos.
+ *    summary: Atualiza um grupo na base de dados.
+ *    responses:
+ *      '201':1
+ *        description: Success
+ *        type: object
+ *        schema:
+ *          type: object
+ *          properties:
+ *              _id:
+ *                  type: string
+ *              name:
+ *                  type: string
+ *              createdAt:
+ *                  type: string
+ *              updatedAt:
+ *                  type: string
+ *              usersIds:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          _id:
+ *                              type: string
+ *                          name:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          createdAt:
+ *                              type: string
+ *                          updatedAt:
+ *                              type: string
+ *    parameters:
+ *      - in: header
+ *        name: Authorization
+ *        schema: bearer
+ *      - in: body
+ *        name: group
+ *        schema:
+ *          type: object
+ *          required:
+ *            - _id
+ *            - name
+ *            - usersIsd:
+ *          properties:
+ *            _id:
+ *              type: string
+ *            name:
+ *              type: string
+ *            usersIds:
+ *              type: array
+ *              items:
+ *                  type: string
+ */
+group.put('/', [checkingAuth, checkingAdmin], );
+
 module.exports = group;
