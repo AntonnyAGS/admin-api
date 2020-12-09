@@ -120,7 +120,7 @@ group.get('/:groupId', [ checkingAuth, checkingAdmin ], GroupController.show);
  *    description: Use essa rota para atualizar um grupos.
  *    summary: Atualiza um grupo na base de dados.
  *    responses:
- *      '201':1
+ *      '200':
  *        description: Success
  *        type: object
  *        schema:
@@ -171,6 +171,6 @@ group.get('/:groupId', [ checkingAuth, checkingAdmin ], GroupController.show);
  *              items:
  *                  type: string
  */
-group.put('/', [checkingAuth, checkingAdmin], );
+group.put('/', [checkingAuth, checkingAdmin], GroupController.update);
 
 module.exports = group;
