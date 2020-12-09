@@ -6,7 +6,7 @@ const project = express.Router();
 
 const { ProjectController } = require('../controllers');
 
-const { checkingAuth, creatingProject, getOneProject, updatingProject } = require('../middlewares');
+const { checkingAuth, creatingProject, getOneProject, updatingProject, checkingAdmin } = require('../middlewares');
 
 // Routes
 /**
@@ -89,6 +89,6 @@ project.post('/', [checkingAuth, creatingProject], ProjectController.store);
  *      '200':
  *        description: Success
  */
-project.put('/', [checkingAuth, updatingProject], ProjectController.update);
+project.put('/', [checkingAuth, updatingProject, checkingAdmin], ProjectController.update);
 
 module.exports = project;

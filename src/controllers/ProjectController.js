@@ -2,10 +2,21 @@
 
 const { Project } = require('../models');
 
+const { UserRole } = require('../enums');
+
 module.exports = {
   async index(req, res){
     try {
-      const projects = await Project.find();
+      const projects = await Project.find().populate({ path: 'clientId', select: '-password' })
+        .populate({ path: 'groupsId', populate: { path: 'usersIds', select: '-password' } });
+
+      if (req.context.role === UserRole.STUDENT) {
+        const result = projects.filter(p => {
+          return p.groups.usersIds.map(u => u._id).includes(req.context.userId);
+        });
+        return res.status(200).json(result);
+      }
+
       return res.status(200).json(projects);
     } catch (error) {
       // eslint-disable-next-line
