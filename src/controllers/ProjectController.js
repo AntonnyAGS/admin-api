@@ -1,19 +1,19 @@
 'use strict';
 
-const { Project } = require('../models');
+const { Project, Group } = require('../models');
 
 const { UserRole } = require('../enums');
+const { ObjectId } = require('mongoose').Types;
 
 module.exports = {
   async index(req, res){
     try {
-      const projects = await Project.find().populate({ path: 'clientId', select: '-password' })
-        .populate({ path: 'groupsId', populate: { path: 'usersIds', select: '-password' } });
+      const projects = await Project.find();
 
       if (req.context.role === UserRole.STUDENT) {
-        const result = projects.filter(p => {
-          return p.groups.usersIds.map(u => u._id).includes(req.context.userId);
-        });
+        const groups = await Group.find({ usersIds: ObjectId(req.context.userId) });
+
+        const result = projects.filter(project => project.groupsId.includes(groups.map(g => g._id)));
         return res.status(200).json(result);
       }
 
