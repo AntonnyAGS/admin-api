@@ -121,9 +121,7 @@ module.exports = {
 
       const projectFiles = await File.find({projectId});
       if(projectFiles.length === 0){
-        return res.status(400).json({
-          message: 'Não existem arquivos para o projeto informado'
-        });
+        return res.status(200).json([]);
       }
 
       const bucket = storage.bucket(process.env.GOOGLE_STORAGE_BUCKET);

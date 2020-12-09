@@ -11,6 +11,10 @@ const creatingManyUsers = require('./creatingManyUsers');
 const creatingClientUser = require('./creatingClientUser');
 const creatingProject = require('./creatingProject');
 const storeFile = require('./storeFile');
+const getOneProject = require('./getOneProject');
+const updatingProject = require('./updatingProject');
+const creatingScore = require('./creatingScore');
+const updatingScore = require('./updatingScore');
 
 module.exports = {
   creatingUser,
@@ -23,5 +27,9 @@ module.exports = {
   checkingForgotPassword,
   creatingClientUser,
   creatingProject,
-  storeFile
+  storeFile,
+  getOneProject,
+  updatingProject,
+  creatingScore,
+  updatingScore
 };

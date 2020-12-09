@@ -3,7 +3,7 @@
 const { Schema, model } = require('mongoose');
 
 const GroupSchema = new Schema({
-  groupName: {
+  name: {
     type: String,
     required: false
   },

@@ -24,7 +24,7 @@ const group = express.Router();
  *          properties:
  *              _id:
  *                  type: string
- *              groupName:
+ *              name:
  *                  type: string
  *              createdAt:
  *                  type: string
@@ -54,10 +54,10 @@ const group = express.Router();
  *        schema:
  *          type: object
  *          required:
- *            - groupName
+ *            - name
  *            - userId:
  *          properties:
- *            groupName:
+ *            name:
  *              type: string
  *            usersIds:
  *              type: array
@@ -89,7 +89,7 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *              properties:
  *                  _id:
  *                      type: string
- *                  groupName:
+ *                  name:
  *                      type: string
  *                  users:
  *                      type: array
@@ -109,5 +109,68 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  */
 group.get('/', [ checkingAuth, checkingAdmin ], GroupController.index);
 group.get('/:groupId', [ checkingAuth, checkingAdmin ], GroupController.show);
+
+
+/**
+ * @swagger
+ * /group:
+ *  put:
+ *    tags:
+ *      - group
+ *    description: Use essa rota para atualizar um grupos.
+ *    summary: Atualiza um grupo na base de dados.
+ *    responses:
+ *      '200':
+ *        description: Success
+ *        type: object
+ *        schema:
+ *          type: object
+ *          properties:
+ *              _id:
+ *                  type: string
+ *              name:
+ *                  type: string
+ *              createdAt:
+ *                  type: string
+ *              updatedAt:
+ *                  type: string
+ *              usersIds:
+ *                  type: array
+ *                  items:
+ *                      type: object
+ *                      properties:
+ *                          _id:
+ *                              type: string
+ *                          name:
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          createdAt:
+ *                              type: string
+ *                          updatedAt:
+ *                              type: string
+ *    parameters:
+ *      - in: header
+ *        name: Authorization
+ *        schema: bearer
+ *      - in: body
+ *        name: group
+ *        schema:
+ *          type: object
+ *          required:
+ *            - _id
+ *            - name
+ *            - usersIsd:
+ *          properties:
+ *            _id:
+ *              type: string
+ *            name:
+ *              type: string
+ *            usersIds:
+ *              type: array
+ *              items:
+ *                  type: string
+ */
+group.put('/', [checkingAuth, checkingAdmin], GroupController.update);
 
 module.exports = group;

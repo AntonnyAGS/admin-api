@@ -23,7 +23,7 @@ const ProjectSchema = new Schema({
   },
   groupsId: [{
     type: ObjectId,
-    ref: 'Group',
+    ref: 'Group'
   }]
 },
 {

@@ -2,7 +2,6 @@
 
 const { validateToken } = require('../helpers');
 const { Token } = require('../models');
-const { find, populate } = require('../models/User');
 
 module.exports = async (req, res, next) => {
   const authHeader = req.headers.authorization;

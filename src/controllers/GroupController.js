@@ -2,14 +2,13 @@
 
 const { Group, User } = require('../models');
 const { printMembersName } = require('../helpers');
-const { show } = require('./UserController');
 const { ObjectId } = require('mongoose').Types;
 const { isValidObjectId } = require('mongoose');
 
 module.exports = {
   async store(req, res){
     try {
-      const { groupName,  usersIds} = req.body;
+      const { name,  usersIds} = req.body;
 
       const membersWithManyGroups = [];
       const memberNotExists = [];
@@ -39,7 +38,7 @@ module.exports = {
       }
 
       const group = await Group.create({
-        groupName,
+        name,
         usersIds
       });
 
@@ -47,7 +46,7 @@ module.exports = {
 
       return res.status(201).json({
         _id: populatedGroup._id,
-        groupName: populatedGroup.groupName,
+        name: populatedGroup.name,
         createdAt: populatedGroup.createdAt,
         updatedAt: populatedGroup.updatedAt,
         usersIds: populatedGroup.usersIds
@@ -100,6 +99,19 @@ module.exports = {
       //eslint-disable-next-line
       console.log('Error on get user ======>', error);
       return res.status(400).json({ message: 'Desculpe, não conseguimos consultar esse usuário'});
+    }
+  },
+  async update(req, res){
+    try {
+      const { _id } = req.body;
+
+      const updatedGroup = await Group.findByIdAndUpdate(_id, req.body, { new: true });
+
+      return res.status(200).json(updatedGroup);
+    } catch (error){
+      //eslint-disable-next-line
+      console.log('Error on updating user =========>', error);
+      return res.status(400).json({ message: 'Não foi possível atualizar o grupo, por favor, contate o administrador.'});
     }
   }
 };

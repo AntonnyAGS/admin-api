@@ -85,7 +85,7 @@ auth.post('/refresh-token', validatingToken, AuthController.refresh);
  *      '200':
  *        description: Success
  */
-auth.post('/logout', validatingToken, AuthController.logout);
+auth.post('/logout', AuthController.logout);
 
 
 module.exports = auth;
