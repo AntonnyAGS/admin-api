@@ -165,7 +165,7 @@ user.post('/create-admin', [ creatingUser, checkingAuth, checkingAdmin ], UserCo
  *                cnpj:
  *                  type: string
  */
-user.get('/', [ checkingAuth, checkingAdmin ], UserController.index);
+user.get('/', [ checkingAuth ], UserController.index);
 
 user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
 
