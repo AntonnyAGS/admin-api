@@ -4,6 +4,7 @@ const { Group, User } = require('../models');
 const { printMembersName } = require('../helpers');
 const { ObjectId } = require('mongoose').Types;
 const { isValidObjectId } = require('mongoose');
+const { UserRole } = require('../enums');
 
 module.exports = {
   async store(req, res){
@@ -64,11 +65,14 @@ module.exports = {
   },
   async index(req, res){
     try{
-      const query = req.query;
+      let query = req.query;
+      if (req.context.role === UserRole.STUDENT) {
+        query = { 'usersIds': ObjectId(req.context.userId) };
+      }
       const groups = await Group.aggregate([
+        {$match: query},
         {$lookup:{from: 'users', localField:'usersIds', foreignField: '_id', as: 'users'}},
         {$project: {'users.password':0, 'users.role':0, usersIds:0}},
-        {$match: query}
       ]);
 
       return res.status(200).json(groups);
