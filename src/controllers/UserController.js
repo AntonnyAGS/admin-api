@@ -3,7 +3,8 @@
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
 const { isValidObjectId } = require('mongoose');
-const user = require('../routers/user');
+
+const { UserRole } = require('../enums');
 
 module.exports = {
   async store(req, res){
@@ -49,9 +50,16 @@ module.exports = {
   async index(req, res){
     try {
       const { role } = req.query;
+
       let query = {
         _id: { $ne: req.context.userId }
       };
+
+      if (req.context.role === UserRole.STUDENT) {
+        query = {
+          role: UserRole.STUDENT
+        };
+      }
 
       if (role){
         query = {

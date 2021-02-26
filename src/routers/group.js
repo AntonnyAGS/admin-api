@@ -107,7 +107,7 @@ group.post('/', [ checkingAuth, checkingAdmin, creatingGroup ], GroupController.
  *                              updatedAt:
  *                                  type: string
  */
-group.get('/', [ checkingAuth, checkingAdmin ], GroupController.index);
+group.get('/', [ checkingAuth ], GroupController.index);
 group.get('/:groupId', [ checkingAuth, checkingAdmin ], GroupController.show);
 
 
