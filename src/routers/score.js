@@ -20,7 +20,7 @@ const { checkingAuth, getOneProject, checkingAdmin, creatingScore, updatingScore
  *      '200':
  *        description: Success
  */
-score.get('/:id', [checkingAuth, getOneProject, checkingAdmin], ScoreController.find);
+score.get('/:id', [checkingAuth, getOneProject], ScoreController.find);
 
 /**
  * @swagger

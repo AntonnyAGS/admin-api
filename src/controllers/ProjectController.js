@@ -13,7 +13,9 @@ module.exports = {
       if (req.context.role === UserRole.STUDENT) {
         const groups = await Group.find({ usersIds: ObjectId(req.context.userId) });
 
-        const result = projects.filter(project => project.groupsId.includes(groups.map(g => g._id)));
+        const groupsId = groups.map(g => g._id.toString());
+
+        const result = projects.filter(project => project.groupsId.some(p => groupsId.includes(p.toString())));
         return res.status(200).json(result);
       }
 

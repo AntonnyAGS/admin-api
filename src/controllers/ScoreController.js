@@ -2,13 +2,23 @@
 
 const { Score, Project } = require('../models');
 const crypto = require('crypto');
+const { UserRole } = require('../enums');
 
 module.exports = {
   async find (req, res) {
     try {
+      const { role, userId } = req.context;
       const { id } = req.params;
 
-      const scores = await Score.find({ projectId: id });
+      let scores = [];
+
+      if (role === UserRole.ADMIN) {
+        scores = await Score.find({ projectId: id });
+      }
+
+      if (role === UserRole.STUDENT) {
+        scores = await Score.find({ projectId: id, studentId: userId });
+      }
 
       return res.status(200).json(scores);
     } catch (error) {

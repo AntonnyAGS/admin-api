@@ -62,11 +62,11 @@ const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers, creatingCl
 user.post('/', [ creatingUser, creatingClientUser ], UserController.store);
 /**
 * @swagger
-* /user:
+* /user/create-admin:
 *  post:
 *    tags:
 *      - user
-*    summary: Adiciona um novo usuário ao banco de dados.
+*    summary: Adiciona um novo usuário administrador ao banco de dados.
 *    description: Use essa rota para criação de usuários admin.
 *    responses:
 *      '201':
@@ -165,7 +165,7 @@ user.post('/create-admin', [ creatingUser, checkingAuth, checkingAdmin ], UserCo
  *                cnpj:
  *                  type: string
  */
-user.get('/', [ checkingAuth, checkingAdmin ], UserController.index);
+user.get('/', [ checkingAuth ], UserController.index);
 
 user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
 
