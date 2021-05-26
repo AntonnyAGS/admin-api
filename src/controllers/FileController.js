@@ -48,9 +48,13 @@ module.exports = {
             metadata: {
               cacheControl: 'no-cache'
             },
-            public: true,
             destination: `projectFiles/${projectId}/${fileType}-${fileName}`
-          }, () => {
+          }, (er) => {
+            if (er) {
+              return res.status(500).json({
+                message: 'Não foi possível fazer o upload do documento'
+              });
+            }
             fs.unlink(filePath,() => {});
           });
         });

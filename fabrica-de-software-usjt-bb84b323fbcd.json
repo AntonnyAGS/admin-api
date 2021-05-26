@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fabrica-de-software-usjt",
+  "private_key_id": "bb84b323fbcdbc384bb2948289b33d1ab6fc852e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC60pBKyU//Cx1I\neGWWfiLX/TuGwnGr+e4Kh5NiOKUjHoO69INLPMh9vFVk0eE2ciH9opaYN9JyCH5M\nd4jYjBPRzC9m8mn58zSgGezWnlqy3PFCzHSrM0Oj9xiO4jplvqPZb00Sa1ZwDXpI\ny9TITfkfHCZ/Q5cwij75z3F1hWRS6ABaZp/Yjsup24prdkgamfifE5ACg7DACRYp\no3pNzIdPOB/ZZqb0unSHnTaayGNar/kIENHaz26J44PSAAkek7axnZtgszS9pHbD\n6wOheGu4PR9kQn0JddlawwdnWS8StKlDjHnT08XEjiUBhYvl2oda0NT3piRZdi5Q\n/Pr34zaXAgMBAAECggEAXIjhGXnfGreZmISx5LmzboIqktQK06Dmq+Z9NOBTwzJh\nEx/7TC/eKpE3RsnCIGKlvWhj6R91KDBWxm9Ko9+2DWtyay5VGY3CGi7dJWyoBgHz\nqh91BjtNHJDOZC9ft3eW1qMPbLknxjaWxCnZyiD87NDXrJ+A6nT/PmLmkswwZfNV\nW5DRVTMgsS1/fRDEYCJb2Ck2cLcDJRJmpzXCsrzwzP0Ty4/mL9mJe17ugzqyCZSE\n7wvxgUjZfeF3mAU2lixQGLp9Aj2fu/DWs+TWdvWAB4w9voGmhcFOeDfg/8umII+b\nIjJ6EjN91/m9kxDn0fJPSoyDqvI2RCGnVwFeKH7rQQKBgQDcB2oY6p4V0iOdrz+Y\nCp6nu1Dt16QfzfKT9+33Amnjl1Ixam+art1xqampfJXw+t7dPxOMpb2Her5p0914\nXu1Yujq/eZnjs7hpQSUUE4GGu6GTNiZj7WuYfSL8t8C4GNVMmU8HCWcpbIQRKvRM\ngknHseywgQdTMvKqKb8H9pMKYQKBgQDZXWco4lf5u/DsG5TpKyT+5hIPdymi4O5E\nOdw8Wjz8VJHxbNydYGMt/5VjghOV0kiJMkYIn039n84kek7Fj4swPaIsSG18+ChM\nuOq3DNlKAMsLhAVchOgch2yY3UCskf7AkDvabaLwjxbxmNQ2OeKFTzl4r7P3c7DH\nxhuQNJ8T9wKBgA5aQXZ8n3FG8uHPU7OkRbMlSeMp5N/aPE+gpZouQyAAd/EXQ05w\nx6spaRLQOKuugakm+yx6h0F2JUOb+V9nuc3G4BwrX3l1+LqM8FE98H4McT68EocE\nLreUuhqIFf8sR4WmnnwUBfGyzW6dQbBX814eYhUlZYfs0917uaVYVUEhAoGAEexd\nwUVIs9MHfrCXitJ/7nTSMGxHBqM9gmqy+lcGiFgA4MN1PZThGL3md5oWO1hnmsiG\nddeM+sjemqtrK2c2tveeE8C1JoTf7dOhpw5sLGn8VCrCtmpPKWsRTVmRJ6myM/aw\nuMYplWR3I9zSQtZrE0sBFi6GzHTBsvdm9nEgXOkCgYAQc7vntfHIn+kX2O0oxxuy\nKUF9aQViyCicPfYF5xtII7SfMExzN239DffLbjvrTfs7OLa/AKdyPrpv0oLB68uZ\n/Hm0L9RWyfx8Qrqagnn4JFgScrDxxdc+URtPCsvqDgjaVP/p82pUACi4CrzJtkdC\nQbUQwpZEO42rRAricCukIg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "fabrica-api@fabrica-de-software-usjt.iam.gserviceaccount.com",
+  "client_id": "116159803273765056733",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fabrica-api%40fabrica-de-software-usjt.iam.gserviceaccount.com"
+}
