@@ -39,7 +39,7 @@ const file = express.Router();
  *                      - fileName
  *                      - fileType
  */
-file.post('/:projectId', [checkingAuth,checkingAdmin, storeFile ], FileController.store);
+file.post('/:projectId', [checkingAuth, storeFile ], FileController.store);
 
 /**
  * @swagger
