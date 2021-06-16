@@ -62,11 +62,11 @@ const { creatingUser, checkingAuth, checkingAdmin, creatingManyUsers, creatingCl
 user.post('/', [ creatingUser, creatingClientUser ], UserController.store);
 /**
 * @swagger
-* /user/create-admin:
+* /user:
 *  post:
 *    tags:
 *      - user
-*    summary: Adiciona um novo usuário administrador ao banco de dados.
+*    summary: Adiciona um novo usuário ao banco de dados.
 *    description: Use essa rota para criação de usuários admin.
 *    responses:
 *      '201':
@@ -133,45 +133,21 @@ user.post('/create-admin', [ creatingUser, checkingAuth, checkingAdmin ], UserCo
  *        schema: bearer
  *        required: true
  *      - in: query
- *        name: role
+ *        name: isAdmin
  *        schema:
- *          type: string
- *          enum: [ADMIN, CLIENT, STUDENT]
+ *          type: boolean
  *        required: true
  *    responses:
  *      '200':
  *        description: Success
- *        schema:
- *          type: array
- *          items:
- *              type: object
- *              properties:
- *                _id:
- *                  type: string
- *                name:
- *                  type: string
- *                role:
- *                  type: string
- *                  enum: [ADMIN, CLIENT, STUDENT]
- *                email:
- *                  type: string
- *                phone:
- *                  type: string
- *                cpf:
- *                  type: string
- *                personType:
- *                  type: string
- *                  enum: [COMPANY, PERSON]
- *                cnpj:
- *                  type: string
  */
-user.get('/', [ checkingAuth ], UserController.index);
+user.get('/', [ checkingAuth, checkingAdmin ], UserController.index);
 
 user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
 
 /**
  * @swagger
- * /user/register-many:
+ * /user/registermany:
  *  post:
  *    description: Use essa rota para criação de usuários admin.
  *    tags:
@@ -204,5 +180,37 @@ user.get('/:userId', [ checkingAuth, checkingAdmin ], UserController.show);
  *                      - password
  */
 user.post('/register-many', [checkingAuth, checkingAdmin, creatingManyUsers], UserController.storeMany);
+
+/**
+ * @swagger
+ * /user:
+ *  put:
+ *    tags:
+ *      - user
+ *    description: Use essa rota para atualização dos dados de um usuário.
+ *    summary: Atualiza os dados de um usuário.
+ *    parameters:
+ *      - in: body
+ *        name: password
+ *        schema:
+ *          type: object
+ *          required:
+ *            - currentPassword
+ *          properties:
+ *            currentPassword:
+ *              type: string
+ *            newPassword:
+ *              type: string
+ *            name:
+ *              type: string
+ *            email:
+ *              type: string
+ *            phone:
+ *              type: string
+ *    responses:
+ *      '201':
+ *          description: Success
+ */
+user.put('/',  checkingAuth, UserController.update);
 
 module.exports = user;
