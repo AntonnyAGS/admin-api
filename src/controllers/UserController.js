@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const { isValidObjectId } = require('mongoose');
 
 const { UserRole } = require('../enums');
+const { validateEmail } = require('../helpers');
 
 module.exports = {
   async store(req, res){
@@ -159,4 +160,46 @@ module.exports = {
       });
     }
   },
+  async update(req, res){
+    const {userId} = req.context;
+    const updatedUserRaw = req.body;
+
+    try{
+      if(updatedUserRaw.email && !validateEmail(updatedUserRaw.email)){
+        return res.status(400).json({
+          message: 'Email inválido'
+        });
+      }
+
+      const findUserByNewEmail = await User.findOne({email: updatedUserRaw.email});
+      if(findUserByNewEmail){
+        return res.status(400).json({
+          message: `Já existe um usuário com o e-mail ${updatedUserRaw.email}`
+        });
+      }
+
+      const findUserById = await User.findOne({_id: userId});
+      const passwordCompare = await bcrypt.compare(updatedUserRaw.currentPassword, findUserById.password);
+      if(!passwordCompare){
+        return res.status(400).json({
+          message: 'Senha incorreta'
+        });
+      }
+
+      const hashedNewPassword =  await bcrypt.hash(updatedUserRaw.newPassword, 10);
+      const updatedUser = await User.findByIdAndUpdate(userId, {
+        name: updatedUserRaw.name || findUserById.name,
+        email: updatedUserRaw.email || findUserById.email,
+        password: hashedNewPassword || findUserById.phone,
+        phone: updatedUserRaw.phone || findUserById.phone
+      }).select('-password');
+
+      return res.status(201).json(updatedUser);
+
+    }catch(error){
+      //eslint-disable-next-line
+       console.log('Error on update user ======>', error);
+      return res.status(500).json({ message: 'Desculpe, não foi possível atualizar o usuário.'});
+    }
+  }
 };
