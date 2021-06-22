@@ -30,4 +30,13 @@ const ScoreType = Object.freeze({
   FINAL: 'FINAL'
 });
 
-module.exports = { ProjectStatus, PersonType, UserRole, FileType, ScoreType };
+const TaskStatus = Object.freeze({
+  PLANNED: 'PLANNED',
+  TODO: 'TODO',
+  DOING: 'DOING',
+  DONE: 'DONE',
+  CANCELLED: 'CANCELLED',
+  STOPPED: 'STOPPED'
+});
+
+module.exports = { ProjectStatus, PersonType, UserRole, FileType, ScoreType, TaskStatus };

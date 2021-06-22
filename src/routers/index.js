@@ -7,6 +7,7 @@ const group = require('./group');
 const project = require('./project');
 const file = require('./file');
 const score = require('./score');
+const task = require('./task');
 
 const express = require('express');
 const { swaggerUiServe, swaggerSetup } = require('../config/swagger');
@@ -24,6 +25,7 @@ router.use('/group', group);
 router.use('/project', project);
 router.use('/file', file);
 router.use('/score', score);
+router.use('/task', task);
 
 router.get('/', (req, res) => {
   res.send('Hello world');
