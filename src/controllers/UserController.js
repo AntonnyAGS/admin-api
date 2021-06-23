@@ -172,27 +172,34 @@ module.exports = {
       }
 
       const findUserByNewEmail = await User.findOne({email: updatedUserRaw.email});
-      if(findUserByNewEmail){
+
+      if(findUserByNewEmail && findUserByNewEmail._id.toString() !== userId){
         return res.status(400).json({
           message: `Já existe um usuário com o e-mail ${updatedUserRaw.email}`
         });
       }
 
       const findUserById = await User.findOne({_id: userId});
-      const passwordCompare = await bcrypt.compare(updatedUserRaw.currentPassword, findUserById.password);
-      if(!passwordCompare){
-        return res.status(400).json({
-          message: 'Senha incorreta'
-        });
+      if (updatedUserRaw.currentPassword) {
+        const passwordCompare = await bcrypt.compare(updatedUserRaw.currentPassword, findUserById.password);
+        if(!passwordCompare){
+          return res.status(400).json({
+            message: 'Senha incorreta'
+          });
+        }
       }
 
-      const hashedNewPassword =  await bcrypt.hash(updatedUserRaw.newPassword, 10);
-      const updatedUser = await User.findByIdAndUpdate(userId, {
+      const obj = {
         name: updatedUserRaw.name || findUserById.name,
         email: updatedUserRaw.email || findUserById.email,
-        password: hashedNewPassword || findUserById.phone,
-        phone: updatedUserRaw.phone || findUserById.phone
-      }).select('-password');
+        phone: updatedUserRaw.phone || findUserById.phone,
+      };
+
+      if (updatedUserRaw.newPassword) {
+        obj['password'] = await bcrypt.hash(updatedUserRaw.newPassword, 10);
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(userId, obj, { new: true }).select('-password');
 
       return res.status(201).json(updatedUser);
 

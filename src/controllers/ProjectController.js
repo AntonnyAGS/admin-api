@@ -19,6 +19,12 @@ module.exports = {
         return res.status(200).json(result);
       }
 
+      if (req.context.role === UserRole.CLIENT) {
+        const result = projects.filter(project => project.clientId.toString() === req.context.userId.toString());
+
+        return res.status(200).json(result);
+      }
+
       return res.status(200).json(projects);
     } catch (error) {
       // eslint-disable-next-line
