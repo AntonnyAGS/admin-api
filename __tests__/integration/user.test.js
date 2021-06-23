@@ -12,6 +12,7 @@ const { User: UserModel } = require('../../src/models');
 
 const mongo = new MongoMemoryServer();
 const bcrypt = require('bcryptjs');
+const user = require('../../src/routers/user');
 
 const UserCredentials = {
   email: 'joazinhomock@gatinhos.com',
@@ -106,6 +107,25 @@ describe('User', () => {
   it('POST on /user/register-many with unavailable RA/email', async(done) => {
     const response = await request(app).post('/user/register-many').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(users);
     expect(response.status).toBe(400);
+    done();
+  });
+
+  it('PUT on /user/ with wrong password', async(done) => {
+    const response = await request(app).put('/user').set('Authorization', `Bearer ${UserAuthenticated.token}`).send({
+      currentPassword: '13299689123',
+      newPassword: '21678123'
+    });
+    expect(response.status).toBe(400);
+    done();
+  });
+
+  it('PUT on /user/ with correct password', async(done) => {
+    const response = await request(app).put('/user').set('Authorization', `Bearer ${UserAuthenticated.token}`).send({
+      currentPassword: UserCredentials.password,
+      newPassword: '21678123'
+    });
+    UserCredentials.password = '21678123';
+    expect(response.status).toBe(201);
     done();
   });
 });

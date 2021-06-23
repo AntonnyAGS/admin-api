@@ -61,7 +61,6 @@ module.exports = {
 
         files[files.indexOf(file)].tag = tag;
         files[files.indexOf(file)].isUpdated = isUpdated;
-
       }
 
       const updatedAt = new Date().toISOString();

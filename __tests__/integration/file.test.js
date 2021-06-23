@@ -76,9 +76,9 @@ let projectId = null;
 beforeAll(async () => {
   process.env.SECRET_HASH = 'banana';
   process.env.SECRET_REFRESH_HASH = 'bananana';
-  process.env.GOOGLE_APPLICATION_CREDENTIALS= 'fabrica-de-software-usjt-bb84b323fbcd.json';
-  process.env.GOOGLE_PROJECT_ID='fabrica-de-software-usjt';
-  process.env.GOOGLE_STORAGE_BUCKET='fabrica-project-docs';
+  process.env.GOOGLE_APPLICATION_CREDENTIALS = 'fabrica-de-software-usjt-bb84b323fbcd.json';
+  process.env.GOOGLE_PROJECT_ID = 'fabrica-de-software-usjt';
+  process.env.GOOGLE_STORAGE_BUCKET = 'fabrica-project-docs';
 
   const uri = await mongo.getUri();
   await mongoose.connect(uri, {
