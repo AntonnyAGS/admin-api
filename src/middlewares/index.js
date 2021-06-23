@@ -15,6 +15,8 @@ const getOneProject = require('./getOneProject');
 const updatingProject = require('./updatingProject');
 const creatingScore = require('./creatingScore');
 const updatingScore = require('./updatingScore');
+const creatingTask = require('./creatingTask');
+const updatingTask = require('./updatingTask');
 
 module.exports = {
   creatingUser,
@@ -31,5 +33,7 @@ module.exports = {
   getOneProject,
   updatingProject,
   creatingScore,
-  updatingScore
+  updatingScore,
+  creatingTask,
+  updatingTask
 };

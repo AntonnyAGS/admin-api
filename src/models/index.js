@@ -6,5 +6,6 @@ const Token = require('./Token');
 const Project = require('./Project');
 const File = require('./File');
 const Score = require('./Score');
+const Task = require('./Task');
 
-module.exports = { User, Token, Project, Group, File, Score };
+module.exports = { User, Token, Project, Group, File, Score, Task };
