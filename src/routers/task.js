@@ -4,7 +4,7 @@ const express = require('express');
 
 const task = express.Router();
 
-const { TaskController } = require('../controllers');
+const { TaskController, CommentController } = require('../controllers');
 
 const { checkingAuth, checkingAdmin, creatingTask, updatingTask } = require('../middlewares');
 
@@ -12,7 +12,7 @@ const { checkingAuth, checkingAdmin, creatingTask, updatingTask } = require('../
 
 /**
  * @swagger
- * /score:
+ * /task:
  *  get:
  *    tags:
  *      - task
@@ -26,7 +26,7 @@ task.get('/project/:projectId', [checkingAuth, checkingAdmin], TaskController.sh
 
 /**
  * @swagger
- * /score:
+ * /task:
  *  post:
  *    tags:
  *      - task
@@ -40,7 +40,7 @@ task.post('/', [checkingAuth, checkingAdmin, creatingTask], TaskController.store
 
 /**
  * @swagger
- * /score:
+ * /task:
  *  put:
  *    tags:
  *      - task
@@ -54,6 +54,46 @@ task.put('/:id', [checkingAuth, checkingAdmin, updatingTask], TaskController.upd
 
 //task.delete('/:id', [checkingAuth, checkingAdmin], TaskController.delete);
 
-//task.post('/comment', )
+/**
+ * @swagger
+ * /task/comment:
+ *  post:
+ *    tags:
+ *      - task
+ *    description: Use essa rota para criar um commentario em uma task.
+ *    summary: cria um comentario.
+ *    responses:
+ *      '201':
+ *        description: Success
+ */
+task.post('/comment', [checkingAuth], CommentController.store);
+
+/**
+ * @swagger
+ * /task/comment:
+ *  put:
+ *    tags:
+ *      - task
+ *    description: Use essa rota para atualizar um comentário em uma task.
+ *    summary: altera um comentario.
+ *    responses:
+ *      '200':
+ *        description: Success
+ */
+task.put('/comment/:id', [checkingAuth], CommentController.update);
+
+/**
+ * @swagger
+ * /task/comment:
+ *  get:
+ *    tags:
+ *      - task
+ *    description: Use essa rota para listar os comentários em uma task.
+ *    summary: listar os comentarios.
+ *    responses:
+ *      '200':
+ *        description: Success
+ */
+task.get('/:taskId/comment/', [checkingAuth], CommentController.show);
 
 module.exports = task;

@@ -65,6 +65,7 @@ let UserAuthenticated = null;
 const usersId = [];
 let projectCreated = null;
 let taskCreated = null;
+let commentCreated = null;
 
 beforeAll(async () => {
   process.env.SECRET_HASH = 'banana';
@@ -151,6 +152,42 @@ describe('Task', () => {
     };
 
     const response = await request(app).put('/task/'+taskCreated._id).set('Authorization', `Bearer ${UserAuthenticated.token}`).send(otherTask);
+
+    expect(response.status).toBe(201);
+    done();
+  });
+
+  it('POST on /task/comment', async(done) => {
+
+    const newComment = {
+      'projectId': '507f1f77bcf86cd799439011',
+      'taskId': '507f1f77bcf86cd799439022',
+      'commentText': 'comentario criado'
+    };
+
+    const response = await request(app).post('/task/comment').set('Authorization', `Bearer ${UserAuthenticated.token}`).send(newComment);
+
+    commentCreated = response.body;
+
+    expect(response.status).toBe(201);
+    done();
+  });
+
+  it('GET on /task/taskId/comment/', async(done) => {
+    const response = await request(app).get('/task/'+taskCreated._id+'/comment').set('Authorization', `Bearer ${UserAuthenticated.token}`);
+    expect(response.status).toBe(200);
+    done();
+  });
+
+  it('PUT on /task/comment/commentId', async(done) => {
+
+    const otherComment = {
+      'projectId': '507f1f77bcf86cd799439011',
+      'taskId': '507f1f77bcf86cd799439022',
+      'commentText': 'comentario alterado'
+    };
+
+    const response = await request(app).put('/task/comment/'+commentCreated._id).set('Authorization', `Bearer ${UserAuthenticated.token}`).send(otherComment);
 
     expect(response.status).toBe(201);
     done();

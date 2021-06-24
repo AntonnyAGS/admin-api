@@ -7,6 +7,7 @@ const ProjectController = require('./ProjectController');
 const FileController = require('./FileController');
 const ScoreController = require('./ScoreController');
 const TaskController = require('./TaskController');
+const CommentController = require('./CommentController');
 
 module.exports = {
   UserController,
@@ -15,5 +16,6 @@ module.exports = {
   ProjectController,
   FileController,
   ScoreController,
-  TaskController
+  TaskController,
+  CommentController
 };

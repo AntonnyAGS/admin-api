@@ -13,12 +13,12 @@ const CommentSchema = new Schema ({
     type: ObjectId,
     ref: 'Task'
   },
-  createdBy: {
+  userId: {
     type: ObjectId,
     ref: 'User',
     require: true
   },
-  comment: {
+  commentText: {
     type: String,
     require: true
   },
