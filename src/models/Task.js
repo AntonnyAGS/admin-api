@@ -22,6 +22,10 @@ const TaskSchema = new Schema({
     type: Date,
     require: true
   },
+  name: {
+    type: String,
+    require: true
+  },
   description: {
     type: String,
     require: true

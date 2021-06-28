@@ -22,7 +22,7 @@ const { checkingAuth, checkingAdmin, creatingTask, updatingTask } = require('../
  *      '200':
  *        description: Success
  */
-task.get('/project/:projectId', [checkingAuth, checkingAdmin], TaskController.show);
+task.get('/project/:projectId', [checkingAuth], TaskController.show);
 
 /**
  * @swagger
@@ -50,7 +50,7 @@ task.post('/', [checkingAuth, checkingAdmin, creatingTask], TaskController.store
  *      '200':
  *        description: Success
  */
-task.put('/:id', [checkingAuth, checkingAdmin, updatingTask], TaskController.update);
+task.put('/:id', [checkingAuth, updatingTask], TaskController.update);
 
 //task.delete('/:id', [checkingAuth, checkingAdmin], TaskController.delete);
 

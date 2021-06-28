@@ -1,5 +1,6 @@
 'use strict';
 
+const { UserRole } = require('../enums');
 const { Task } = require('../models');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
 
   async store(req, res){
     try{
-      const { projectId, groupId, dateStart, dateEnd, description } = req.body;
+      const { projectId, groupId, dateStart, dateEnd, description, name } = req.body;
       const { userId } = req.context;
 
       const task = await Task.create({
@@ -17,7 +18,8 @@ module.exports = {
         dateStart,
         dateEnd,
         description,
-        userId
+        userId,
+        name
       });
 
       return res.status(201).json(task);
@@ -45,8 +47,21 @@ module.exports = {
   async show(req, res){
     try{
       const { projectId } = req.params;
+      const { role, userId } = req.context;
 
-      const tasks = await Task.find({ projectId: projectId});
+      let tasks = await Task.find({ projectId: projectId}).populate({ path: 'groupId' }).then(res => {
+        return res.map(task => {
+          const obj = {...task._doc};
+
+          obj['group'] = task.groupId;
+
+          return obj;
+        });
+      });
+
+      if (role === UserRole.STUDENT) {
+        tasks = tasks.filter(task => task.group.usersIds.includes(userId));
+      }
 
       return res.status(200).json(tasks);
     } catch (error) {
